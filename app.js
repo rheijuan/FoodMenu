@@ -60,7 +60,17 @@ app.get('/employees/update/:id', (req, res) => {
 
 // ---- PROJECTS ----
 
-// Insert here
+app.get('/projects', (req, res) => {
+    Project.find().then((result) => {
+        res.render('project/display' , {projects: result})
+    })
+})
+
+// Add Page
+app.get('/projects/add', (req, res) => {
+    res.render('project/add')
+})
+
 
 // ------------ APIS------------
 
@@ -121,3 +131,13 @@ app.delete('/employees/:id', (req, res) => {
 })
 
 // ---- PROJECT ----
+
+app.post('/projects/add', (req,res) => {
+    const project = new Project(req.body)
+    project.save().then((result) => {
+        console.log('Adding project through UI')
+        res.redirect('/projects')
+    }).catch((err) => {
+        console.log(err)
+    })
+})

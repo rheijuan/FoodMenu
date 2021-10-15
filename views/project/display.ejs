@@ -1,0 +1,15 @@
+<% extend('../partials/layout') %>
+
+<%- include('../partials/menu.ejs') %>
+
+<div class='projects'>
+    <h2>All Projects</h2>
+
+    <% if(projects.length > 0) { %>
+        <% projects.forEach(project => { %>
+            <a class='single' href='/projects/<%= project._id %>'> <h3 class='name'> <%= project.name %> </h3>  </a>
+        <% }) %>
+    <% } else {%>
+        <p>There are no projects</p>
+    <% } %>
+</div>

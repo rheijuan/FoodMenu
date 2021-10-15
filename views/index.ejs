@@ -9,5 +9,7 @@
         <% employees.forEach(employee => { %>
             <a class='single' href='/employees/<%= employee._id %>'> <h3 class='name'> <%= employee.name %> </h3>  </a>
         <% }) %>
+    <% } else {%>
+        <p>There are no employees</p>
     <% } %>
 </div>
