@@ -3,14 +3,11 @@
 <%- include('../partials/menu.ejs') %>
 
 <div class='details content'>
-    <h2> <%= employee.name %> </h2>
+    <h2> <%= project.name %> </h2>
     <div class='content'> 
-        <p> <%= employee.birthday %></p>
-        <p> <%= employee.sex %></p>
-        <p> <%= employee.address %></p>
-        <p> <%= employee.dateHired %></p>
-        <a class='delete' data-doc='<%= employee._id %>'> Delete </a>
-        <a href='/employees/update/<%= employee._id %>'> Update </a>
+        <!-- <p> <%= project.birthday %></p> -->
+        <a class='delete' data-doc='<%= project._id %>'> Delete </a>
+        <a href='/projects/update/<%= project._id %>'> Update </a>
     </div>
 
 </div>
@@ -19,7 +16,7 @@
     const trashcan = document.querySelector('a.delete')
 
     trashcan.addEventListener('click', (e) => {
-        const endpoint = `/employees/${trashcan.dataset.doc}`
+        const endpoint = `/projects/${trashcan.dataset.doc}`
 
         fetch(endpoint, {
             method: 'DELETE'
