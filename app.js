@@ -18,6 +18,25 @@ mongoose.connect(dbURI)
     .then((result) => app.listen(3000))
     .catch((err) => console.log(err))
 
+// ---- ROUTING ----
+
+// Homepage
+app.get('/', (req, res) => {
+
+    Employee.find().then((result) => {
+        res.render('index' , {employees: result})
+    })
+})
+
+// Create Page
+app.get('/employee/create', (req, res) => {
+    res.render('create')
+})
+
+app.get('/employees', (req, res) => {
+    res.render('index')
+})
+
 // ---- EMPLOYEE APIs ----
 
 // 1. Add Employee (manual)
@@ -52,65 +71,23 @@ app.post('/employees', (req,res) => {
     })
 })
 
-// 3. Delete Employee (manual)
-
-
-// ---- ROUTING ----
-
-// Homepage
-app.get('/', (req, res) => {
-    res.render('index')
-
-
-})
-
-// Create Page
-app.get('/employee/create', (req, res) => {
-    res.render('create')
-})
-
-
-
-/*
-
-// Adding food
-app.get('/add-food', (req, res) => {
-    const food = new Food({
-        name: 'Pizza',
-        price: 300,
-        description: 'Peperroni Pizza',
-        availability: true
-    })
-
-    food.save().then((result) => {
-        res.send(result)
-    }).catch((err) => {
-        console.log(err)
-    })
-
-    console.log("Added food")
-})
-
-// Find single food by ID
-app.get('/single-food', (req,res) => {
-    Food.findById('6168f28276e9d30d3542e627')
-    .then((result) => {
-        res.send(result)
-    }).catch((err) => {
+// 3. Delete Employee (from UI)
+app.delete('/employee/:id', (req, res) => {
+    const id = req.params.id
+    
+    Employee.findByIdAndDelete(id).then(result => {
+        res.json({ redirect: '/'})
+    }).catch(err => {
         console.log(err)
     })
 })
 
-// Add food through UI
-app.post('/addFood', (req,res) => {
-    console.log('Adding food through submit')
-
-    const food = new Food(req.body)
-    food.save().then((result) => {
-        console.log('Successful ')
-        res.redirect('/')
-    }).catch((err) => {
+// 4. Search for employee based on ID ()
+app.get('/employee/:id', (req, res) => {
+    const id = req.params.id
+    Employee.findById(id).then(result => {
+        res.render('details', {employee: result})
+    }).catch(err => {
         console.log(err)
     })
 })
-*/
