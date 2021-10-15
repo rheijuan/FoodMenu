@@ -6,6 +6,9 @@ const Project = require('./models/project')
 // express app
 const app = express()
 
+// express extend
+app.engine('ejs', require('express-ejs-extend'));
+
 // register view engine
 app.set('view engine', 'ejs')
 
@@ -18,29 +21,52 @@ mongoose.connect(dbURI)
     .then((result) => app.listen(3000))
     .catch((err) => console.log(err))
 
-// ---- ROUTING ----
+// ------------ ROUTING ------------
 
-// Homepage
-app.get('/', (req, res) => {
+// ---- HOMEPAGE ----
 
+app.get(['/', '/employees'], (req, res) => {
     Employee.find().then((result) => {
         res.render('index' , {employees: result})
     })
 })
 
-// Create Page
-app.get('/employee/create', (req, res) => {
-    res.render('create')
+// ---- EMPLOYEE ----
+
+// Add Page
+app.get('/employees/add', (req, res) => {
+    res.render('employee/add')
 })
 
-// Update User
-app.get('/employee/update', (req, res) => {
-    res.render('update')
+// Details Page
+app.get('/employees/:id', (req, res) => {
+    const id = req.params.id
+    Employee.findById(id).then(result => {
+        res.render('employee/details', {employee: result})
+    }).catch(err => {
+        console.log(err)
+    })
 })
 
-// ---- EMPLOYEE APIs ----
+// Update Page
+app.get('/employees/update/:id', (req, res) => {
+    const id = req.params.id
+    Employee.findById(id).then(result => {
+        res.render('employee/update', {employee: result})
+    }).catch(err => {
+        console.log(err)
+    })
+})
 
-// 1. Add Employee (manual)
+// ---- PROJECTS ----
+
+// Insert here
+
+// ------------ APIS------------
+
+// ---- EMPLOYEE ----
+
+// Add Employee (manual)
 app.post('/add-employee', (req, res) => {
     const employee = new Employee({
         name: 'John Doe',
@@ -60,9 +86,8 @@ app.post('/add-employee', (req, res) => {
     console.log("Added employee manually")
 })
 
-// 2. Add Employee (via UI)
-app.post('/employees', (req,res) => {
-
+// 1. ADD Employee
+app.post('/employees/add', (req,res) => {
     const employee = new Employee(req.body)
     employee.save().then((result) => {
         console.log('Adding employee through UI')
@@ -72,21 +97,10 @@ app.post('/employees', (req,res) => {
     })
 })
 
-// 3. Delete Employee (from UI)
-app.delete('/employee/:id', (req, res) => {
+// 2. UPDATE Employee
+app.post('/employees/:id', (req, res) => {
     const id = req.params.id
-    
-    Employee.findByIdAndDelete(id).then(result => {
-        res.json({ redirect: '/'})
-    }).catch(err => {
-        console.log(err)
-    })
-})
-
-// 4. Update information about user
-app.post('/updateEmployee', (req, res) => {
-    const id = req.params.id
-    Employee.findOneAndUpdate(id, req.body)
+    Employee.findByIdAndUpdate(id, req.body)
     .then(result => {
         Employee.find().then((result) => {
             res.render('index' , {employees: result})
@@ -96,12 +110,14 @@ app.post('/updateEmployee', (req, res) => {
     })
 })
 
-// 5. Search for employee based on ID ()
-app.get('/employee/:id', (req, res) => {
+// 3. DELETE Employee
+app.delete('/employees/:id', (req, res) => {
     const id = req.params.id
-    Employee.findById(id).then(result => {
-        res.render('details', {employee: result})
+    Employee.findByIdAndDelete(id).then(result => {
+        res.json({ redirect: '/'})
     }).catch(err => {
         console.log(err)
     })
 })
+
+// ---- PROJECT ----
