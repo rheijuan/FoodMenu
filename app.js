@@ -33,8 +33,9 @@ app.get('/employee/create', (req, res) => {
     res.render('create')
 })
 
-app.get('/employees', (req, res) => {
-    res.render('index')
+// Update User
+app.get('/employee/update', (req, res) => {
+    res.render('update')
 })
 
 // ---- EMPLOYEE APIs ----
@@ -82,7 +83,20 @@ app.delete('/employee/:id', (req, res) => {
     })
 })
 
-// 4. Search for employee based on ID ()
+// 4. Update information about user
+app.post('/updateEmployee', (req, res) => {
+    const id = req.params.id
+    Employee.findOneAndUpdate(id, req.body)
+    .then(result => {
+        Employee.find().then((result) => {
+            res.render('index' , {employees: result})
+        })
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+// 5. Search for employee based on ID ()
 app.get('/employee/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {

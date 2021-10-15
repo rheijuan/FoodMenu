@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title> API app</title>
+    </head>
+    <body>
+        <nav>
+            <div class='site-title'>
+                <a href='/'> <h1> Employee Management System </h1> </a>
+                <p> A sample website </p>
+            </div>
+            <ul>
+                <li> <a href='/'> Employees </a> </li>
+                <li> <a href='/employee/create'> Create Employee </a> </li>
+            </ul>
+        </nav>
+
+        <div class ='add employees'>
+            <form action='/updateEmployee', method='POST'>
+                <label for='name'> New Name: </label>
+                    <input type='text' id='name' name='name' required>
+                <button> Submit </button>
+            </form>
+        </div>
+
+    </body>
+
+</html>
