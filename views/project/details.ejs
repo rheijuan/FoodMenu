@@ -1,0 +1,30 @@
+<% extend('../partials/layout') %>
+
+<%- include('../partials/menu.ejs') %>
+
+<div class='details content'>
+    <h2> <%= employee.name %> </h2>
+    <div class='content'> 
+        <p> <%= employee.birthday %></p>
+        <p> <%= employee.sex %></p>
+        <p> <%= employee.address %></p>
+        <p> <%= employee.dateHired %></p>
+        <a class='delete' data-doc='<%= employee._id %>'> Delete </a>
+        <a href='/employees/update/<%= employee._id %>'> Update </a>
+    </div>
+
+</div>
+
+<script>
+    const trashcan = document.querySelector('a.delete')
+
+    trashcan.addEventListener('click', (e) => {
+        const endpoint = `/employees/${trashcan.dataset.doc}`
+
+        fetch(endpoint, {
+            method: 'DELETE'
+        }).then((response) => response.json())
+        .then((data) => window.location.href = data.redirect)
+        .catch(err => console.log(err))
+    })
+</script>
