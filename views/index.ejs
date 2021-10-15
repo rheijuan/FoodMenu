@@ -1,0 +1,13 @@
+<% extend('partials/layout') %>
+
+<%- include('partials/menu.ejs') %>
+
+<div class='employees'>
+    <h2> All Employees </h2>
+
+    <% if(employees.length > 0) { %>
+        <% employees.forEach(employee => { %>
+            <a class='single' href='/employees/<%= employee._id %>'> <h3 class='name'> <%= employee.name %> </h3>  </a>
+        <% }) %>
+    <% } %>
+</div>

@@ -1,0 +1,10 @@
+<% extend('../partials/layout') %>
+
+<%- include('../partials/menu.ejs') %>
+
+<div class ='add employees'>
+    <form action='/employees/<%= employee._id %>', method='POST'>
+        <input type="hidden" name="_method" value="PUT">
+        <%- include('../partials/employee-form.ejs', '{employee: employee') %>
+    </form>
+</div>
