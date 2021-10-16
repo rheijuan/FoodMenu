@@ -1,0 +1,9 @@
+<% extend('../partials/layout') %>
+
+<%- include('../partials/menu.ejs') %>
+
+<div class ='add projects'>
+    <form action='/projects/<%= project._id %>', method='POST'>
+        <%- include('../partials/project-form.ejs', '{project: project') %>
+    </form>
+</div>

@@ -60,6 +60,7 @@ app.get('/employees/update/:id', (req, res) => {
 
 // ---- PROJECTS ----
 
+// Display Page (index for projects)
 app.get('/projects', (req, res) => {
     Project.find().then((result) => {
         res.render('project/display' , {projects: result})
@@ -76,6 +77,16 @@ app.get('/projects/:id', (req, res) => {
     const id = req.params.id
     Project.findById(id).then(result => {
         res.render('project/details', {project: result})
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+// Update Page
+app.get('/projects/update/:id', (req, res) => {
+    const id = req.params.id
+    Project.findById(id).then(result => {
+        res.render('project/update', {project: result})
     }).catch(err => {
         console.log(err)
     })
@@ -141,12 +152,36 @@ app.delete('/employees/:id', (req, res) => {
 
 // ---- PROJECT ----
 
+// 1. ADD Project
 app.post('/projects/add', (req,res) => {
     const project = new Project(req.body)
     project.save().then((result) => {
         console.log('Adding project through UI')
         res.redirect('/projects')
     }).catch((err) => {
+        console.log(err)
+    })
+})
+
+// 2. UPDATE Project
+app.post('/projects/:id', (req, res) => {
+    const id = req.params.id
+    Project.findByIdAndUpdate(id, req.body)
+    .then(result => {
+        Project.find().then((result) => {
+            res.render('project/display' , {projects: result})
+        })
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+// 3. DELETE Project
+app.delete('/projects/:id', (req, res) => {
+    const id = req.params.id
+    Project.findByIdAndDelete(id).then(result => {
+        res.json({ redirect: '/projects'})
+    }).catch(err => {
         console.log(err)
     })
 })

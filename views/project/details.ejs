@@ -4,6 +4,12 @@
 
 <div class='details content'>
     <h2> <%= project.name %> </h2>
+
+    <p> Employees</p>
+    <% project.employees.forEach(employee => { %>
+        <p><%= employee %></p>
+    <% }) %>
+
     <div class='content'> 
         <!-- <p> <%= project.birthday %></p> -->
         <a class='delete' data-doc='<%= project._id %>'> Delete </a>

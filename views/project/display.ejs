@@ -8,6 +8,9 @@
     <% if(projects.length > 0) { %>
         <% projects.forEach(project => { %>
             <a class='single' href='/projects/<%= project._id %>'> <h3 class='name'> <%= project.name %> </h3>  </a>
+            <% project.employees.forEach(employee => { %>
+                <p><%= employee %></p>
+            <% }) %>
         <% }) %>
     <% } else {%>
         <p>There are no projects</p>
