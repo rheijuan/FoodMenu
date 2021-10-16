@@ -2,21 +2,32 @@
 
 <%- include('../partials/menu.ejs') %>
 
-<div class='details content'>
-    <h2> <%= project.name %> </h2>
-
-    <p> Employees</p>
-    <% project.employees.forEach(employee => { %>
-        <p><%= employee %></p>
-    <% }) %>
-
-    <div class='content'> 
-        <!-- <p> <%= project.birthday %></p> -->
-        <a class='delete' data-doc='<%= project._id %>'> Delete </a>
-        <a href='/projects/update/<%= project._id %>'> Update </a>
+<!-- CARD FOR PROJECT DETAILS -->
+<div class="container" style="margin-left: 30%;">
+    <br><br><br>
+    <h1> Project Details </h1>
+    <br>
+    <div class="card" style="width: 50%;">
+        <div class="card-body">
+        <h5 class="card-title"><b><%= project.name %></b></h5>  
+        </div>
+        <ul class="list-group list-group-flush">
+            <% if(project.employees.length > 0) { %>
+                <% project.employees.forEach(employee => { %>
+                    <li class="list-group-item"><%= employee %></li>
+                <% }) %>
+            <% } else { %>
+                <i> <p align="center"> There are no employees assigned to this project. </p> </i>
+            <% } %>
+        
+        </ul>
+        <div class="card-body">
+            <a type='button' class='delete btn btn-danger text-white' data-doc='<%= project._id %>'> Delete </a>
+            <a type='button' class='btn btn-primary text-white' href='/projects/update/<%= project._id %>'> Update </a>
+        </div>
     </div>
-
 </div>
+<!-- END OF CARD FOR PROJECT DETAILS-->
 
 <script>
     const trashcan = document.querySelector('a.delete')
@@ -31,3 +42,18 @@
         .catch(err => console.log(err))
     })
 </script>
+
+<!-- <div class='details content'>
+    <h2> <%= project.name %> </h2>
+
+    <p> Employees</p>
+    <% project.employees.forEach(employee => { %>
+        <p><%= employee %></p>
+    <% }) %>
+
+    <div class='content'> 
+
+        
+    </div>
+
+</div> -->

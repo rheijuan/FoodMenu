@@ -1,12 +1,55 @@
-<label for='name'> Project Name: </label>
-    <input type='text' id='name' name='name'<% if(locals.project) {%> value="<%= project.name %>" <% } %> required>
+<!-- START OF ADD PROJECT FORM -->
+<br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Project details</div>
+                <div class="card-body">
+                    <form class="form-horizontal" method="post" action="#">
+                        <!-- START OF PROJECT NAME FIELD -->
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Project Name" <% if(locals.project) {%> value="<%= project.name %>" <% } %> required />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- START OF PROJECT NAME FIELD -->
+                        <!-- START OF MANAGE EMPLOYEES FIELD -->
+                        <% if(locals.project) { %>
+                            <div class="form-group">
+                            <label for="employees[]" class="cols-sm-2 control-label">Employees</label>
+                            <% if(project.employees.length > 0) { %>
+                                    <input type='text' class="form-control" name="employees[]" value="<%= project.employees[0] %>">
+                                        <% for (var i = 1; i < project.employees.length;  i++ ) { %>
+                                            <input type='text' name="employees[]" value="<%= project.employees[i] %>" required>
+                                        <% } %>        
+                                    <% } else { %>
+                                        <input type='text' class="form-control" name="employees[]" value="<%= project.employees[0] %>">
+                                    <% } %>
+                            </div>
+                            <% } %>
+                        <!-- END OF MANAGE EMPLOYEES FIELD -->
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block login-button">Add Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF ADD PROJECT FORM -->
     
     <!-- Needed Implementations
         1. Add/remove fields
         2. Does not update project list of employee
      -->
 
-    <% if(locals.project) { %>
+    <!-- <% if(locals.project) { %>
         <h1>Manage Employees</h1>
         <% if(project.employees.length > 0) { %>
             <input type='text' name="employees[]" value="<%= project.employees[0] %>">
@@ -16,6 +59,4 @@
         <% } else { %>
             <input type='text' name="employees[]" value="<%= project.employees[0] %>">
         <% } %>
-    <% } %>
-
-<button> Submit </button>
+    <% } %> -->

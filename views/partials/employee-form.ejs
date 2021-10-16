@@ -1,12 +1,67 @@
-<label for='name'> Employee Name: </label>
-    <input type='text' id='name' name='name'<% if(locals.employee) {%> value="<%= employee.name %>" <% } %> required>
-<label for='birthday'> Birthday: </label>
-    <input type='date' id='birthday' name='birthday' <% if(locals.employee) {%> value="<%= employee.birthday %>" <% } %> required>
-<label for='sex'> Sex: </label>
-    <input type='text' id='sex' name='sex' <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>
-<label for='address'> Address: </label>
-    <input type='text' id='address' name='address' <% if(locals.employee) {%> value="<%= employee.address %>" <% } %> required>
-<label for='dateHired'> Date Hired: </label>
-    <input type='date' id='dateHired' name='dateHired' <% if(locals.employee) {%> value="<%= employee.dateHired %>" <% } %> required>
-<button> Submit </button>
+<!-- START OFF ADD EMPLOYEE FORM -->
+<br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Employee details</div>
+                <div class="card-body">
 
+                    <form class="form-horizontal" method="post" action="#">
+
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Employee's Full Name" <% if(locals.employee) {%> value="<%= employee.name %>" <% } %> required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday" class="cols-sm-2 control-label">Birthday</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type='date' class="form-control" id='birthday' name='birthday' <% if(locals.employee) {%> value="<%= employee.birthday %>" <% } %> required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sex" class="cols-sm-2 control-label">Sex</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <select class="form-control" id="sex" name="sex">
+                                        <option <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>Male</option>
+                                        <option <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>Female</option>
+                                        <option <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="cols-sm-2 control-label">Address</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="address" id="address"
+                                        placeholder="Address" <% if(locals.employee) {%> value="<%= employee.address %>" <% } %> required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateHired" class="cols-sm-2 control-label">Date Hired</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type='date' class="form-control" id='dateHired' name='dateHired' <% if(locals.employee) {%> value="<%= employee.dateHired %>" <% } %> required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block login-button">Add Employee</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF ADD EMPLOYEE FORM -->

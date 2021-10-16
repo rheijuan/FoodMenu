@@ -1,8 +1,59 @@
+<script src='https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css'></script>
+<script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.jqueryui.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.jqueryui.min.js"></script>
+
 <% extend('partials/layout') %>
 
 <%- include('partials/menu.ejs') %>
 
-<div class='employees'>
+<div class="container">
+  <br><br>
+  <h1> Employee Database </h1>
+  <br>
+
+  <table id="employeeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Name</th>
+        <th class="th-sm">Birthday</th>
+        <th class="th-sm">Sex</th>
+        <th class="th-sm">Projects</th>
+        <th class="th-sm">Address</th>
+        <th class="th-sm">Date Hired</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(employees.length > 0) { %>
+        <% employees.forEach(employee => { %>
+            <tr>
+              <td><a class='single' href='/employees/<%= employee._id %>'> <%= employee.name %></a></td>
+              <td><%= employee.birthday %></td>
+              <td><%= employee.sex %></td>
+              <td><%= employee.projects %></td>
+              <td><%= employee.address %></td>
+              <td><%= employee.dateHired %></td>
+            </tr>
+        <% }) %>
+      <% } else {%>
+          <tr align="center">
+            <td colspan="6">There are no employees added.</td>
+          </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function () {
+      $('#employeeTable').DataTable({
+        "order": []
+      });
+  });
+</script>
+
+<!-- <div class='employees'>
     <h2> All Employees </h2>
 
     <% if(employees.length > 0) { %>
@@ -12,4 +63,4 @@
     <% } else {%>
         <p>There are no employees</p>
     <% } %>
-</div>
+</div> -->
