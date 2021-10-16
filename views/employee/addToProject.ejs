@@ -1,0 +1,14 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h1> Hello World </h1>
+        <div class = 'addToProject employee'>
+            <form action='/employee/addProj/<%= employee._id %>', method='POST'>
+                <label for='project'> Project: </label>
+                    <input type='text' id='project' name='project' required> 
+                <button> Submit </button>
+            </form>
+        </div>
+    </body>
+</html>

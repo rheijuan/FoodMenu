@@ -58,6 +58,16 @@ app.get('/employees/update/:id', (req, res) => {
     })
 })
 
+// Add employee to a project Page
+app.get('/employees/addToProject/:id', (req, res) => {
+    const id = req.params.id
+    Employee.findById(id).then(result => {
+        res.render('employee/addToProject', {employee: result})
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
 // ---- PROJECTS ----
 
 // Display Page (index for projects)
@@ -145,6 +155,18 @@ app.delete('/employees/:id', (req, res) => {
     const id = req.params.id
     Employee.findByIdAndDelete(id).then(result => {
         res.json({ redirect: '/'})
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+// 4. Add Project to Employee
+app.post('/employee/addProj/:id', (req, res) => {
+    const id = req.params.id
+    Employee.findById(id).then(result => {
+        result.projects.push(req.body.project)
+        result.save()
+        res.redirect('/')
     }).catch(err => {
         console.log(err)
     })
