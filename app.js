@@ -35,7 +35,7 @@ app.get(['/', '/employees'], (req, res) => {
 
 // Add Page
 app.get('/employees/add', (req, res) => {
-    res.render('employee/add')
+    res.render('employee/form')
 })
 
 // Details Page
@@ -52,7 +52,7 @@ app.get('/employees/:id', (req, res) => {
 app.get('/employees/update/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
-        res.render('employee/update', {employee: result})
+        res.render('employee/form', {employee: result})
     }).catch(err => {
         console.log(err)
     })
@@ -79,7 +79,7 @@ app.get('/projects', (req, res) => {
 
 // Add Page
 app.get('/projects/add', (req, res) => {
-    res.render('project/project-form')
+    res.render('project/form')
 })
 
 // Details Page
@@ -96,7 +96,7 @@ app.get('/projects/:id', (req, res) => {
 app.get('/projects/update/:id', (req, res) => {
     const id = req.params.id
     Project.findById(id).then(result => {
-        res.render('project/project-form', {project: result})
+        res.render('project/form', {project: result})
     }).catch(err => {
         console.log(err)
     })

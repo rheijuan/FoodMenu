@@ -1,4 +1,17 @@
-<!-- START OFF ADD EMPLOYEE FORM -->
+<% extend('../partials/layout') %>
+
+<%- include('../partials/menu.ejs') %>
+
+<% 
+    method = locals.employee ? 'Update' : 'Add';
+    action = method === 'Add' ?  '/employees/add' : '/employees/' + employee._id;
+    employee_name = method === "Add" ? "" : employee.name;
+    employee_birthday = method === "Add" ? "" : employee.birthday;
+    employee_sex = method === "Add" ? "" : employee.sex;
+    employee_address = method === "Add" ? "" : employee.address;
+    employee_dateHired = method === "Add" ? "" : employee.dateHired;
+%>
+
 <br><br>
 <div class="container">
     <div class="row justify-content-center">
@@ -7,14 +20,14 @@
                 <div class="card-header">Employee details</div>
                 <div class="card-body">
 
-                    <form class="form-horizontal" method="post" action="#">
+                    <form class="form-horizontal" method="POST" action='<%= action %>'>
 
                         <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">Name</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Employee's Full Name" <% if(locals.employee) {%> value="<%= employee.name %>" <% } %> required />
+                                        placeholder="Employee's Full Name" value='<%= employee_name %>' required />
                                 </div>
                             </div>
                         </div>
@@ -22,7 +35,7 @@
                             <label for="birthday" class="cols-sm-2 control-label">Birthday</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <input type='date' class="form-control" id='birthday' name='birthday' <% if(locals.employee) {%> value="<%= employee.birthday %>" <% } %> required />
+                                    <input type='date' class="form-control" id='birthday' name='birthday' value='<%= employee_birthday %>' required />
                                 </div>
                             </div>
                         </div>
@@ -31,9 +44,9 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <select class="form-control" id="sex" name="sex">
-                                        <option <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>Male</option>
-                                        <option <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>Female</option>
-                                        <option <% if(locals.employee) {%> value="<%= employee.sex %>" <% } %> required>Prefer not to say</option>
+                                        <option required>Male</option>
+                                        <option required>Female</option>
+                                        <option required>Prefer not to say</option>
                                     </select>
                                 </div>
                             </div>
@@ -43,7 +56,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="address" id="address"
-                                        placeholder="Address" <% if(locals.employee) {%> value="<%= employee.address %>" <% } %> required />
+                                        placeholder="Address" value='<%= employee_address %>' required />
                                 </div>
                             </div>
                         </div>
@@ -51,12 +64,12 @@
                             <label for="dateHired" class="cols-sm-2 control-label">Date Hired</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <input type='date' class="form-control" id='dateHired' name='dateHired' <% if(locals.employee) {%> value="<%= employee.dateHired %>" <% } %> required />
+                                    <input type='date' class="form-control" id='dateHired' name='dateHired' value='<%= employee_dateHired %>' required />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-lg btn-block login-button">Add Employee</button>
+                            <button class="btn btn-primary btn-lg btn-block login-button"><%= method %> Employee</button>
                         </div>
                     </form>
                 </div>
@@ -64,4 +77,3 @@
         </div>
     </div>
 </div>
-<!-- END OF ADD EMPLOYEE FORM -->

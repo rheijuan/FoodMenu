@@ -3,20 +3,19 @@
 <%- include('../partials/menu.ejs') %>
 
 <% 
-    method = locals.project ? 'UPD' : 'ADD';
-    action = method === 'ADD' ?  '/projects/add' : '/projects/' + project._id;
-    name = method === "ADD" ? "" : project.name;
-    console.log(method);
-    console.log(action);
+    method = locals.project ? 'Update' : 'Add';
+    action = method === 'Add' ?  '/projects/add' : '/projects/' + project._id;
+    name = method === "Add" ? "" : project.name;
 %>
 
 <div class ='project-form'>
     
     <form action=<%= action %> method='POST'>
         <input type="text" name="name"  value='<%= name %>' required />
-        <% if(method === "UPD") { %>
+        <% if(method === "Update") { %>
             <h1>Manage Employees</h1>
         <% } %>
+        <button type="submit"><%= method %> Project</button>
     </form>
 
 </div>
