@@ -26,8 +26,10 @@ mongoose.connect(dbURI)
 // ---- HOMEPAGE ----
 
 app.get(['/', '/employees'], (req, res) => {
-    Employee.find().then((result) => {
-        res.render('index' , {employees: result})
+    Project.find().then((projects) => {
+        Employee.find().then((employees) => {
+            res.render('index' , {projects: projects, employees: employees});
+        })
     })
 })
 
@@ -209,6 +211,29 @@ app.post('/projects/:id', (req, res) => {
         req.body.employees = []
         console.log(req.body)
     }
+    
+    Project.findById(id, function (err_1, docs_1) {
+        var arrA = docs_1.employees
+        var arrB = req.body.employees
+
+        var old_employees = arrA.filter(x => !arrB.includes(x));
+        var new_employees = arrB.filter(x => !arrA.includes(x));
+
+        Employee.updateMany(
+            { _id: { $in: old_employees } }, 
+            { $pop: {projects: id} },
+            (err_2, docs_2) => {}
+        )
+
+        Employee.updateMany(
+            { _id: { $in: new_employees } }, 
+            { $push: {projects: id} },
+            (err_3, docs_3) => {}
+        )
+
+    });
+    
+
     Project.findByIdAndUpdate(id, req.body)
     .then(result => {
         Project.find().then((projects) => {
