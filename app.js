@@ -164,8 +164,18 @@ app.delete('/employees/:id', (req, res) => {
 app.post('/employee/addProj/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
+        const project = req.body.project
+
         result.projects.push(req.body.project)
         result.save()
+
+        // Add employee to project
+        Project.findOne({name: project}).then((res => {
+            res.employees.push(result.name)
+            res.save
+            console.log(res)
+        }))
+
         res.redirect('/')
     }).catch(err => {
         console.log(err)
