@@ -56,17 +56,9 @@ app.get('/employees/:id', (req, res) => {
 app.get('/employees/update/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
-        res.render('employee/form', {employee: result})
-    }).catch(err => {
-        console.log(err)
-    })
-})
-
-// Add employee to a project Page
-app.get('/employees/addToProject/:id', (req, res) => {
-    const id = req.params.id
-    Employee.findById(id).then(result => {
-        res.render('employee/addToProject', {employee: result})
+        Project.find().then((projects) => {
+            res.render('employee/form', {employee: result, projects: projects})
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -151,10 +143,43 @@ app.post('/employees/add', (req,res) => {
 // 2. UPDATE Employee
 app.post('/employees/:id', (req, res) => {
     const id = req.params.id
+    if (req.body.projects == null) {
+        req.body.projects = []
+        console.log(req.body)
+    }
+
+    Employee.findById(id, function (err_1, docs_1) {
+        var arrA = docs_1.projects
+        var arrB = req.body.projects
+
+        var old_projects = arrA.filter(x => !arrB.includes(x));
+        var new_projects = arrB.filter(x => !arrA.includes(x));
+
+        console.log(arrA)
+        console.log(arrB)
+        console.log(old_projects)
+        console.log(new_projects)
+
+        Project.updateMany(
+            { _id: { $in: old_projects } }, 
+            { $pull: {employees: id} },
+            (err_2, docs_2) => {}
+        )
+
+        Project.updateMany(
+            { _id: { $in: new_projects } }, 
+            { $push: {employees: id} },
+            (err_3, docs_3) => {}
+        )
+
+    });
+
     Employee.findByIdAndUpdate(id, req.body)
     .then(result => {
         Employee.find().then((result) => {
-            res.render('index' , {employees: result})
+            Project.find().then((projects) => {
+                res.render('index', {employees: result, projects: projects})
+            })
         })
     }).catch(err => {
         console.log(err)
@@ -223,7 +248,7 @@ app.post('/projects/:id', (req, res) => {
 
         Employee.updateMany(
             { _id: { $in: old_employees } }, 
-            { $pop: {projects: id} },
+            { $pull: {projects: id} },
             (err_2, docs_2) => {}
         )
 
