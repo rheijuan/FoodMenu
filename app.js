@@ -195,6 +195,10 @@ app.post('/projects/add', (req,res) => {
 // 2. UPDATE Project
 app.post('/projects/:id', (req, res) => {
     const id = req.params.id
+    if (req.body.employees == null) {
+        req.body.employees = []
+        console.log(req.body)
+    }
     Project.findByIdAndUpdate(id, req.body)
     .then(result => {
         Project.find().then((projects) => {
