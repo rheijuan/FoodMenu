@@ -5,20 +5,75 @@
 <% 
     method = locals.project ? 'Update' : 'Add';
     action = method === 'Add' ?  '/projects/add' : '/projects/' + project._id;
-    name = method === "Add" ? "" : project.name;
+    project_name = method === "Add" ? "" : project.name;
 %>
 
 <div class ='project-form'>
     
     <form action=<%= action %> method='POST'>
-        <input type="text" name="name"  value='<%= name %>' required />
+        <input type="text" name="name"  value='<%= project_name %>' required />
+
         <% if(method === "Update") { %>
             <h1>Manage Employees</h1>
+            <button type="button" id="add">+</button>
+            <button type="button" id="remove">-</button>
+
+            <div id="employee-list">
+                <% if(project.employees.length > 0) { %>
+                     <% for (var i = 0; i < project.employees.length;  i++ ) { %>
+                        <input type='text' name="employees[]" value="<%= project.employees[i] %>" required>
+                    <% } %>        
+                <% } %>
+            </div>
+
         <% } %>
+
         <button type="submit"><%= method %> Project</button>
     </form>
 
 </div>
+
+<script>
+
+    if ('<%= method %>' == "Update") {
+        
+        var add = document.getElementById("add");
+        var remove = document.getElementById("remove");
+
+        var parent = document.getElementById("employee-list");
+    
+        function addEmployee() {
+            var field = document.createElement('input');
+            field.type = 'text';
+            field.name = 'employees[]';
+            field.required = true;
+ 
+            parent.appendChild(field);
+            updateRemoveBtn();
+        }
+    
+        function removeEmployee() {
+            console.log("wow");
+            if (parent.children.length > 0) {
+                console.log(parent.children.length);
+                parent.removeChild(parent.lastElementChild);
+            }
+            updateRemoveBtn();
+        }
+
+        function updateRemoveBtn() {
+            remove.disabled = parent.children.length == 0 ? true: false;
+        }
+    
+        window.addEventListener('load',function(){
+            updateRemoveBtn();
+            add.addEventListener("click", addEmployee);
+            remove.addEventListener("click", removeEmployee);
+        });
+
+    }
+
+</script>
 
 <!-- END OF ADD PROJECT FORM -->
     

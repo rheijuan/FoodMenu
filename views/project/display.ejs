@@ -9,39 +9,40 @@
 
     <!-- CARD DECK FOR PROJECTS -->
     <div class="container">
-        <% if(projects.length > 0) { %>
+        
+    <% if(projects.length > 0) { %>
         <% var i = 0 %>
         <% var j = 0 %>
         <% projects.forEach(project => { %>
-        <% if(i % 3 == 0) { %>
-        <div class="card-deck">
-        <% } %>
-            <div class="card">
-                <% var j = 0 %>
-                <div class="card-body">
-                    <b> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </b>
-                    <p class="card-text">
-                        <i> <p> Assigned employees: </p> </i>
-                        <ul>
-                            <% j = 0 %>
-                            <% project.employees.forEach(employee => { %>
-                                <li><%= employee %></li>
-                                <% j++ %>
-                            <% }) %>
-                            <% i++ %>
-                            <% console.log(j) %>
-                        </ul>
-                        </p>
+            <% if(i % 3 == 0) { %>
+            <div class="card-deck">
+            <% } %>
+                <div class="card">
+                    <% var j = 0 %>
+                    <div class="card-body">
+                        <b> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </b>
+                        <p class="card-text">
+                            <i> <p> Assigned employees: </p> </i>
+                            <ul>
+                                <% j = 0 %>
+                                <% project.employees.forEach(employee => { %>
+                                    <li><%= employee %></li>
+                                    <% j++ %>
+                                <% }) %>
+                                <% i++ %>
+                                <% console.log(j) %>
+                            </ul>
+                            </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Total: <%= j %></small>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Total: <%= j %></small>
-                </div>
+            <% if(i % 3 == 0) { %>
             </div>
-        <% if(i % 3 == 0) { %>
-        </div>
-        <br><br>
-        <% } %>
-        <% }) %>
+            <br><br>
+            <% } %>
+            <% }) %>
     </div>
 
     <% } else {%>
