@@ -13,9 +13,15 @@
         </div>
         <ul class="list-group list-group-flush">
             <% if(project.employees.length > 0) { %>
-                <% project.employees.forEach(employee => { %>
-                    <li class="list-group-item"><%= employee %></li>
-                <% }) %>
+                <% 
+                    project.employees.forEach(project_employee => { 
+                        employees.forEach(employee => {
+                            if(project_employee == employee._id) { %>
+                                <li class="list-group-item"><%= employee.name %></li>
+                            <% }
+                        })
+                    }) 
+                %>
             <% } else { %>
                 <i> <p align="center"> There are no employees assigned to this project. </p> </i>
             <% } %>

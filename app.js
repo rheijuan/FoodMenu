@@ -72,8 +72,10 @@ app.get('/employees/addToProject/:id', (req, res) => {
 
 // Display Page (index for projects)
 app.get('/projects', (req, res) => {
-    Project.find().then((result) => {
-        res.render('project/display' , {projects: result})
+    Project.find().then((projects) => {
+        Employee.find().then((employees) => {
+            res.render('project/display' , {projects: projects, employees: employees});
+        })
     })
 })
 
@@ -85,8 +87,11 @@ app.get('/projects/add', (req, res) => {
 // Details Page
 app.get('/projects/:id', (req, res) => {
     const id = req.params.id
-    Project.findById(id).then(result => {
-        res.render('project/details', {project: result})
+
+    Project.findById(id).then(project => {
+        Employee.find().then((employees) => {
+            res.render('project/details' , {project: project, employees: employees});
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -95,8 +100,10 @@ app.get('/projects/:id', (req, res) => {
 // Update Page
 app.get('/projects/update/:id', (req, res) => {
     const id = req.params.id
-    Project.findById(id).then(result => {
-        res.render('project/form', {project: result})
+    Project.findById(id).then(project => {
+        Employee.find().then(employees => {
+            res.render('project/form', {project: project, employees: employees})
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -190,8 +197,10 @@ app.post('/projects/:id', (req, res) => {
     const id = req.params.id
     Project.findByIdAndUpdate(id, req.body)
     .then(result => {
-        Project.find().then((result) => {
-            res.render('project/display' , {projects: result})
+        Project.find().then((projects) => {
+            Employee.find().then((employees) => {
+                res.render('project/display' , {projects: projects, employees: employees});
+            })
         })
     }).catch(err => {
         console.log(err)

@@ -6,6 +6,7 @@
     method = locals.project ? 'Update' : 'Add';
     action = method === 'Add' ?  '/projects/add' : '/projects/' + project._id;
     project_name = method === "Add" ? "" : project.name;
+
 %>
 
 <div class ='project-form'>
@@ -15,16 +16,19 @@
 
         <% if(method === "Update") { %>
             <h1>Manage Employees</h1>
-            <button type="button" id="add">+</button>
-            <button type="button" id="remove">-</button>
 
-            <div id="employee-list">
-                <% if(project.employees.length > 0) { %>
-                     <% for (var i = 0; i < project.employees.length;  i++ ) { %>
-                        <input type='text' name="employees[]" value="<%= project.employees[i] %>" required>
-                    <% } %>        
-                <% } %>
-            </div>
+            <select class="js-example-basic-multiple" name="employees[]" multiple="multiple">
+                
+                <% 
+                    employees.forEach(employee => {
+                        if(project.employees.indexOf(employee._id) > -1) { %>
+                            <option value="<%= employee._id %>" selected><%= employee.name %></option>
+                        <% } else { %>
+                            <option value="<%= employee._id %>"><%= employee.name %></option>
+                        <% }
+                    }) 
+                %> 
+            </select>
 
         <% } %>
 
@@ -32,67 +36,6 @@
     </form>
 
 </div>
-
-<script>
-
-    if ('<%= method %>' == "Update") {
-        
-        var add = document.getElementById("add");
-        var remove = document.getElementById("remove");
-
-        var parent = document.getElementById("employee-list");
-    
-        function addEmployee() {
-            var field = document.createElement('input');
-            field.type = 'text';
-            field.name = 'employees[]';
-            field.required = true;
- 
-            parent.appendChild(field);
-            updateRemoveBtn();
-        }
-    
-        function removeEmployee() {
-            console.log("wow");
-            if (parent.children.length > 0) {
-                console.log(parent.children.length);
-                parent.removeChild(parent.lastElementChild);
-            }
-            updateRemoveBtn();
-        }
-
-        function updateRemoveBtn() {
-            remove.disabled = parent.children.length == 0 ? true: false;
-        }
-    
-        window.addEventListener('load',function(){
-            updateRemoveBtn();
-            add.addEventListener("click", addEmployee);
-            remove.addEventListener("click", removeEmployee);
-        });
-
-    }
-
-</script>
-
-<!-- END OF ADD PROJECT FORM -->
-    
-    <!-- Needed Implementations
-        1. Add/remove fields
-        2. Does not update project list of employee
-     -->
-
-    <!-- <% if(locals.project) { %>
-        <h1>Manage Employees</h1>
-        <% if(project.employees.length > 0) { %>
-            <input type='text' name="employees[]" value="<%= project.employees[0] %>">
-             <% for (var i = 1; i < project.employees.length;  i++ ) { %>
-                <input type='text' name="employees[]" value="<%= project.employees[i] %>" required>
-            <% } %>        
-        <% } else { %>
-            <input type='text' name="employees[]" value="<%= project.employees[0] %>">
-        <% } %>
-    <% } %> -->
 
 <!-- START OF ADD PROJECT FORM -->
 <!-- <br><br>
