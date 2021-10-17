@@ -44,7 +44,9 @@ app.get('/employees/add', (req, res) => {
 app.get('/employees/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
-        res.render('employee/details', {employee: result})
+        Project.find().then((projects) => {
+            res.render('employee/details', {employee: result, projects: projects})
+        })
     }).catch(err => {
         console.log(err)
     })
