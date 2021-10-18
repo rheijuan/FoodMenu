@@ -2,14 +2,35 @@
 
 <%- include('../partials/menu.ejs') %>
 
-<div class="container">
+<div class='projects'>
+    <h2>All Projects</h2>
+
+    <% if(projects.length > 0) { %>
+        <% projects.forEach(project => { %>
+            <a class='single' href='/projects/<%= project._id %>'> <h3 class='name'> <%= project.name %> </h3>  </a>
+            <% 
+                project.employees.forEach(project_employee => { 
+                    employees.forEach(employee => { 
+                        if(project_employee == employee._id) { %>
+                            <p><%= employee.name %></p>
+                        <% }
+                    })
+                }) 
+             %>
+        <% }) %>
+    <% } else {%>
+        <p>There are no projects</p>
+    <% } %>
+</div>
+
+<!-- <div class="container">
     <br><br>
     <h1> Project Database </h1>
     <br>
 
-    <!-- CARD DECK FOR PROJECTS -->
+    CARD DECK FOR PROJECTS
     <div class="container">
-        
+
     <% if(projects.length > 0) { %>
         <% var i = 0 %>
         <% var j = 0 %>
@@ -26,7 +47,7 @@
                             <ul>
                                 <% j = 0 %>
                                 <% project.employees.forEach(employee => { %>
-                                    <li><%= employee %></li>
+                                    <li><%= employee._id %></li>
                                     <% j++ %>
                                 <% }) %>
                                 <% i++ %>
@@ -48,20 +69,5 @@
     <% } else {%>
         <p>There are no projects.</p>
     <% } %>
-    <!-- END OF CARD DECK FOR PROJECTS-->
-    </div>
-
-<!-- <div class='projects'>
-    <h2>All Projects</h2>
-
-    <% if(projects.length > 0) { %>
-        <% projects.forEach(project => { %>
-            <a class='single' href='/projects/<%= project._id %>'> <h3 class='name'> <%= project.name %> </h3>  </a>
-            <% project.employees.forEach(employee => { %>
-                <p><%= employee %></p>
-            <% }) %>
-        <% }) %>
-    <% } else {%>
-        <p>There are no projects</p>
-    <% } %>
-</div> -->
+    END OF CARD DECK FOR PROJECTS
+    </div> -->

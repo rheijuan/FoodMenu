@@ -25,7 +25,17 @@
               <td><a class='single' href='/employees/<%= employee._id %>'> <%= employee.name %></a></td>
               <td><%= employee.birthday %></td>
               <td><%= employee.sex %></td>
-              <td><%= employee.projects %></td>
+              <td>
+                <%
+                  employee.projects.forEach(employee_project => {
+                    projects.forEach(project => {
+                      if(employee_project == project._id) { %>
+                          <%= project.name %>
+                      <%}
+                    })
+                  }) 
+                %>
+              </td>
               <td><%= employee.address %></td>
               <td><%= employee.dateHired %></td>
             </tr>
@@ -46,15 +56,3 @@
       });
   });
 </script>
-
-<!-- <div class='employees'>
-    <h2> All Employees </h2>
-
-    <% if(employees.length > 0) { %>
-        <% employees.forEach(employee => { %>
-            <a class='single' href='/employees/<%= employee._id %>'> <h3 class='name'> <%= employee.name %> </h3>  </a>
-        <% }) %>
-    <% } else {%>
-        <p>There are no employees</p>
-    <% } %>
-</div> -->

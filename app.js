@@ -26,8 +26,10 @@ mongoose.connect(dbURI)
 // ---- HOMEPAGE ----
 
 app.get(['/', '/employees'], (req, res) => {
-    Employee.find().then((result) => {
-        res.render('index' , {employees: result})
+    Project.find().then((projects) => {
+        Employee.find().then((employees) => {
+            res.render('index' , {projects: projects, employees: employees});
+        })
     })
 })
 
@@ -42,7 +44,9 @@ app.get('/employees/add', (req, res) => {
 app.get('/employees/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
-        res.render('employee/details', {employee: result})
+        Project.find().then((projects) => {
+            res.render('employee/details', {employee: result, projects: projects})
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -73,7 +77,6 @@ app.get('/employees/addToProject/:id', (req, res) => {
         })).catch(err => {
             console.log(err)
         })
-        
     }).catch(err => {
         console.log(err)
     })
@@ -83,8 +86,10 @@ app.get('/employees/addToProject/:id', (req, res) => {
 
 // Display Page (index for projects)
 app.get('/projects', (req, res) => {
-    Project.find().then((result) => {
-        res.render('project/display' , {projects: result})
+    Project.find().then((projects) => {
+        Employee.find().then((employees) => {
+            res.render('project/display' , {projects: projects, employees: employees});
+        })
     })
 })
 
@@ -96,8 +101,11 @@ app.get('/projects/add', (req, res) => {
 // Details Page
 app.get('/projects/:id', (req, res) => {
     const id = req.params.id
-    Project.findById(id).then(result => {
-        res.render('project/details', {project: result})
+
+    Project.findById(id).then(project => {
+        Employee.find().then((employees) => {
+            res.render('project/details' , {project: project, employees: employees});
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -106,8 +114,10 @@ app.get('/projects/:id', (req, res) => {
 // Update Page
 app.get('/projects/update/:id', (req, res) => {
     const id = req.params.id
-    Project.findById(id).then(result => {
-        res.render('project/form', {project: result})
+    Project.findById(id).then(project => {
+        Employee.find().then(employees => {
+            res.render('project/form', {project: project, employees: employees})
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -151,10 +161,43 @@ app.post('/employees/add', (req,res) => {
 // 2. UPDATE Employee
 app.post('/employees/:id', (req, res) => {
     const id = req.params.id
+    if (req.body.projects == null) {
+        req.body.projects = []
+        console.log(req.body)
+    }
+
+    Employee.findById(id, function (err_1, docs_1) {
+        var arrA = docs_1.projects
+        var arrB = req.body.projects
+
+        var old_projects = arrA.filter(x => !arrB.includes(x));
+        var new_projects = arrB.filter(x => !arrA.includes(x));
+
+        console.log(arrA)
+        console.log(arrB)
+        console.log(old_projects)
+        console.log(new_projects)
+
+        Project.updateMany(
+            { _id: { $in: old_projects } }, 
+            { $pull: {employees: id} },
+            (err_2, docs_2) => {}
+        )
+
+        Project.updateMany(
+            { _id: { $in: new_projects } }, 
+            { $push: {employees: id} },
+            (err_3, docs_3) => {}
+        )
+
+    });
+
     Employee.findByIdAndUpdate(id, req.body)
     .then(result => {
         Employee.find().then((result) => {
-            res.render('index' , {employees: result})
+            Project.find().then((projects) => {
+                res.render('index', {employees: result, projects: projects})
+            })
         })
     }).catch(err => {
         console.log(err)
@@ -209,10 +252,39 @@ app.post('/projects/add', (req,res) => {
 // 2. UPDATE Project
 app.post('/projects/:id', (req, res) => {
     const id = req.params.id
+    if (req.body.employees == null) {
+        req.body.employees = []
+        console.log(req.body)
+    }
+    
+    Project.findById(id, function (err_1, docs_1) {
+        var arrA = docs_1.employees
+        var arrB = req.body.employees
+
+        var old_employees = arrA.filter(x => !arrB.includes(x));
+        var new_employees = arrB.filter(x => !arrA.includes(x));
+
+        Employee.updateMany(
+            { _id: { $in: old_employees } }, 
+            { $pull: {projects: id} },
+            (err_2, docs_2) => {}
+        )
+
+        Employee.updateMany(
+            { _id: { $in: new_employees } }, 
+            { $push: {projects: id} },
+            (err_3, docs_3) => {}
+        )
+
+    });
+    
+
     Project.findByIdAndUpdate(id, req.body)
     .then(result => {
-        Project.find().then((result) => {
-            res.render('project/display' , {projects: result})
+        Project.find().then((projects) => {
+            Employee.find().then((employees) => {
+                res.render('project/display' , {projects: projects, employees: employees});
+            })
         })
     }).catch(err => {
         console.log(err)

@@ -16,13 +16,22 @@
         <li class="list-group-item"><b>Birthday: </b><%= employee.birthday %></li>
         <li class="list-group-item"><b>Sex: </b><%= employee.sex %></li>
         <li class="list-group-item"><b>Address: </b><%= employee.address %></li>
-        <li class="list-group-item"><b>Projects: </b><%= employee.projects %></li>
+        <li class="list-group-item"><b>Projects: </b>
+            <%
+                employee.projects.forEach(employee_project => {
+                    projects.forEach(project => {
+                        if(employee_project == project._id) { %>
+                            <%= project.name %>
+                        <% }
+                    })
+                }) 
+            %>
+        </li>
         <li class="list-group-item"><b>Date Hired: </b><%= employee.dateHired %></li>
         </ul>
         <div class="card-body">
             <a type='button' class='delete btn btn-danger text-white' data-doc='<%= employee._id %>'> Delete </a>
             <a type='button' class='btn btn-primary text-white' href='/employees/update/<%= employee._id %>'> Update </a>
-            <a type='button' class='btn btn-primary text-white' href='/employees/addToProject/<%= employee._id %>'> Add to Project </a>
         </div>
     </div>
 </div>
@@ -41,18 +50,3 @@
         .catch(err => console.log(err))
     })
 </script>
-
-
-<!-- <div class='details content'>
-    <h2> <%= employee.name %> </h2>
-    <div class='content'> 
-        <p> <%= employee.birthday %></p>
-        <p> <%= employee.sex %></p>
-        <p> <%= employee.address %></p>
-        <p> <%= employee.dateHired %></p>
-        <a class='delete' data-doc='<%= employee._id %>'> Delete </a>
-        <a href='/employees/update/<%= employee._id %>'> Update </a>
-        <a href='/employees/addToProject/<%= employee._id %>'> Add to Project </a>
-    </div> -->
-
-</div>
