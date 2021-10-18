@@ -37,12 +37,34 @@
         <li class="list-group-item"><b>Date Hired: </b><%= employee.dateHired %></li>
         </ul>
         <div class="card-body">
-            <a type='button' class='delete btn btn-danger text-white' data-doc='<%= employee._id %>'> Delete </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteEmployeeModal"> Delete </button>
             <a type='button' class='btn btn-primary text-white' href='/employees/update/<%= employee._id %>'> Update </a>
         </div>
     </div>
 </div>
 <!-- END OF CARD FOR EMPLOYEE DETAILS-->
+
+<!-- START OF CONFIRM EMPLOYEE MODAL -->
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm delete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the employee <u> <%= employee.name %></u>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a type='button' class='delete btn btn-danger text-white' data-doc='<%= employee._id %>'> Delete </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END OF CONFIRM DELETE MODAL -->
 
 <script>
     const trashcan = document.querySelector('a.delete')
