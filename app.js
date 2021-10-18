@@ -62,7 +62,18 @@ app.get('/employees/update/:id', (req, res) => {
 app.get('/employees/addToProject/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
-        res.render('employee/addToProject', {employee: result})
+        var projectNames = []
+        Project.find().then((resultSet => {
+
+            for (var i = 0; i < resultSet.length; i++) {
+                projectNames.push(resultSet[i].name)
+            }
+
+            res.render('employee/addToProject', {employee: result, projNames: projectNames})
+        })).catch(err => {
+            console.log(err)
+        })
+        
     }).catch(err => {
         console.log(err)
     })
