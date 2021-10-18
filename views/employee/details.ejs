@@ -18,15 +18,17 @@
         <li class="list-group-item"><b>Address: </b><%= employee.address %></li>
         <li class="list-group-item"><b>Projects: </b>
             <%
+                var i = 0
                 employee.projects.forEach(employee_project => {
-                    var i = 0
                     projects.forEach(project => {
                         if(employee_project == project._id) { %>
                             <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> 
-                        <% } %>
-                        <% if(i < employee.projects.length - 1) { %>
-                            ,
-                          <% i++
+                        <% 
+                            if(i < employee.projects.length - 1) { %>
+                                ,
+                            <% 
+                            }
+                        i++
                         } %>    
                     <% })
                 }) 
