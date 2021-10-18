@@ -27,10 +27,13 @@
               <td><%= employee.sex %></td>
               <td>
                 <%
+                  var i = 0
                   employee.projects.forEach(employee_project => {
                     projects.forEach(project => {
                       if(employee_project == project._id) { %>
-                          <%= project.name %>
+                        <ul>  
+                          <li> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </li>
+                        </ul>
                       <%}
                     })
                   }) 

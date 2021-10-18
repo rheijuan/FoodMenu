@@ -70,9 +70,9 @@
                         </div>
                         <% if (method == 'Update') { %>
                             <div class="form-group">
-                                <label for="projects" class="cols-sm-2 control-label">Projects</label>
+                                <label for="projects[]" class="cols-sm-2 control-label">Projects</label>
                                 <div class="cols-sm-10">
-                                    <select class="js-example-basic-multiple" name="projects[]" multiple="multiple" data-placeholder="Please select a">
+                                    <select class="js-example-basic-multiple form-control" name="projects[]" multiple="multiple" data-placeholder="Please select a">
                                         <% 
                                             projects.forEach(project => {
                                                 if(employee.projects.indexOf(project._id) > -1) { %>

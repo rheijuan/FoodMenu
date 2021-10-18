@@ -8,7 +8,57 @@
     project_name = method === "Add" ? "" : project.name;
 %>
 
-<div class ='project-form'>
+<!-- START OF ADD PROJECT FORM -->
+<br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Project details</div>
+                <div class="card-body">
+                    <form class="form-horizontal" method="post" action=<%= action %>>
+                        <!-- START OF PROJECT NAME FIELD -->
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Project Name" value="<%= project_name %>" required />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- START OF PROJECT NAME FIELD -->
+                        <!-- START OF MANAGE EMPLOYEES FIELD -->
+                        <% if(method === "Update") { %>
+                            <div class="form-group">
+                                <label for="employees" class="cols-sm-2 control-label">Manage Employees</label><br>
+
+                                <select class="js-example-basic-multiple form-control" name="employees[]" multiple="multiple" data-placeholder="Please select a">
+                                    <% 
+                                        employees.forEach(employee => {
+                                            if(project.employees.indexOf(employee._id) > -1) { %>
+                                                <option value="<%= employee._id %>" selected><%= employee.name %></option>
+                                            <% } else { %>
+                                                <option value="<%= employee._id %>"><%= employee.name %></option>
+                                            <% }
+                                        }) 
+                                    %> 
+                                </select>
+                            </div>
+                        <% } %>
+                        <!-- END OF MANAGE EMPLOYEES FIELD -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button"><%= method %> Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF ADD PROJECT FORM -->
+
+<!-- <div class ='project-form'>
     
     <form action=<%= action %> method='POST'>
         <input type="text" name="name"  value='<%= project_name %>' required />
@@ -33,49 +83,4 @@
         <button type="submit"><%= method %> Project</button>
     </form>
 
-</div>
-
-<!-- START OF ADD PROJECT FORM -->
-<!-- <br><br>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Project details</div>
-                <div class="card-body">
-                    <form class="form-horizontal" method="post" action="#">
-                        START OF PROJECT NAME FIELD
-                        <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Name</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Project Name" <% if(locals.project) {%> value="<%= project.name %>" <% } %> required />
-                                </div>
-                            </div>
-                        </div>
-                        START OF PROJECT NAME FIELD
-                        START OF MANAGE EMPLOYEES FIELD
-                        <% if(locals.project) { %>
-                            <div class="form-group">
-                            <label for="employees[]" class="cols-sm-2 control-label">Employees</label>
-                            <% if(project.employees.length > 0) { %>
-                                    <input type='text' class="form-control" name="employees[]" value="<%= project.employees[0] %>">
-                                        <% for (var i = 1; i < project.employees.length;  i++ ) { %>
-                                            <input type='text' name="employees[]" value="<%= project.employees[i] %>" required>
-                                        <% } %>        
-                                    <% } else { %>
-                                        <input type='text' class="form-control" name="employees[]" value="<%= project.employees[0] %>">
-                                    <% } %>
-                            </div>
-                            <% } %>
-                        END OF MANAGE EMPLOYEES FIELD
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg btn-block login-button">Add Project</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div> -->

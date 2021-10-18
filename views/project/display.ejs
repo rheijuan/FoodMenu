@@ -2,7 +2,61 @@
 
 <%- include('../partials/menu.ejs') %>
 
-<div class='projects'>
+<div class="container">
+    <br><br>
+    <h1> Project Database </h1>
+    <br>
+
+    <!-- START OF CARD DECK FOR PROJECTS -->
+    <div class="container">
+
+    <% if(projects.length > 0) { %>
+        <% var i = 0 %>
+        <% var j = 0 %>
+        <% projects.forEach(project => { %>
+            <% if(i % 3 == 0) { %>
+            <div class="card-deck">
+            <% } %>
+                <div class="card">
+                    <div class="card-body">
+                        <b> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </b>
+                        <p class="card-text">
+                            <% if (project.employees.length > 0){ %>
+                                <i> <p> Assigned employees: </p> </i>
+                                <ul>
+                                    <% j = 0 %>
+                                    <% project.employees.forEach(project_employee => { %>
+                                        <% employees.forEach(employee => { %>
+                                            <% if(project_employee == employee._id) { %>
+                                                <li><%= employee.name %></li>
+                                            <% } %>
+                                        <% }) %>
+                                    <% }) %>
+                                    <% i++ %>
+                                </ul>
+                                </p>
+                            <% } else { %>
+                                <i> <p> There are no employees assigned to this project. </p> </i>
+                            <% } %>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Total: <%= project.employees.length %></small>
+                    </div>
+                </div>
+            <% if(i % 3 == 0) { %>
+                </div>
+                <br><br>
+            <% } %>
+        <% }) %>
+    </div>
+
+    <% } else {%>
+        <i> <p> There are no projects. </p> </i>
+    <% } %>
+    <!-- END OF CARD DECK FOR PROJECTS -->
+    </div>
+
+<!-- <div class='projects'>
     <h2>All Projects</h2>
 
     <% if(projects.length > 0) { %>
@@ -21,53 +75,4 @@
     <% } else {%>
         <p>There are no projects</p>
     <% } %>
-</div>
-
-<!-- <div class="container">
-    <br><br>
-    <h1> Project Database </h1>
-    <br>
-
-    CARD DECK FOR PROJECTS
-    <div class="container">
-
-    <% if(projects.length > 0) { %>
-        <% var i = 0 %>
-        <% var j = 0 %>
-        <% projects.forEach(project => { %>
-            <% if(i % 3 == 0) { %>
-            <div class="card-deck">
-            <% } %>
-                <div class="card">
-                    <% var j = 0 %>
-                    <div class="card-body">
-                        <b> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </b>
-                        <p class="card-text">
-                            <i> <p> Assigned employees: </p> </i>
-                            <ul>
-                                <% j = 0 %>
-                                <% project.employees.forEach(employee => { %>
-                                    <li><%= employee._id %></li>
-                                    <% j++ %>
-                                <% }) %>
-                                <% i++ %>
-                                <% console.log(j) %>
-                            </ul>
-                            </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Total: <%= j %></small>
-                    </div>
-                </div>
-            <% if(i % 3 == 0) { %>
-            </div>
-            <br><br>
-            <% } %>
-            <% }) %>
-    </div>
-
-    <% } else {%>
-        <p>There are no projects.</p>
-    <% } %>
-    END OF CARD DECK FOR PROJECTS
-    </div> -->
+</div> -->
