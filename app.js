@@ -209,30 +209,6 @@ app.delete('/employees/:id', (req, res) => {
 
 })
 
-// // 3. DELETE Project
-// app.delete('/projects/:id', (req, res) => {
-//     const id = req.params.id
-//     console.log("Deleting Project")
-
-//     Project.findById(id, function (err_1, project) {
-
-//         // console.log(docs_1.employees)
-//         Employee.updateMany(
-//             { _id: { $in: project.employees } }, 
-//             { $pull: {projects: id} },
-//             (err_2, docs_2) => {}
-//         )
-
-//         Project.findByIdAndDelete(id).then(result => {
-//             res.json({ redirect: '/projects'})
-//         }).catch(err => {
-//             console.log(err)
-//         })
-
-//     });
-
-// })
-
 // ---- PROJECT ----
 
 // 1. ADD Project
