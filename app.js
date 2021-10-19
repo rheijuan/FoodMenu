@@ -5,6 +5,7 @@ const Project = require('./models/project')
 
 // express app
 const app = express()
+const bodyParser = require('body-parser');
 
 // express extend
 app.engine('ejs', require('express-ejs-extend'));
@@ -14,6 +15,10 @@ app.set('view engine', 'ejs')
 
 // middleware
 app.use(express.urlencoded())
+app.use(express.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // connect to mongodb
 const dbURI = 'mongodb+srv://root:root@foodmenuapp.7r05l.mongodb.net/Items?retryWrites=true&w=majority'
@@ -134,8 +139,7 @@ app.post('/add-employee', (req, res) => {
 // 1. ADD Employee
 app.post('/employee', (req,res) => {
     console.log('POST/ employee')
-
-    const employee = new Employee(req.body)
+    
     employee.save().then((result) => {
         res.redirect('/')
     }).catch((err) => {
