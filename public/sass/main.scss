@@ -1,0 +1,23 @@
+@import 'fonts';
+@import 'theme';
+@import 'override';
+
+body {
+  font-family: font-get(lato);
+}
+
+table.table.table-striped tr {
+  background-color: theme-get(primary);
+
+  a.single {
+    color: theme-get(tertiary);
+  }
+
+  th {
+    color: theme-get(white);
+  }
+
+  td {
+    color: theme-get(fourth);
+  }
+}

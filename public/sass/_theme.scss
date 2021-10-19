@@ -1,0 +1,12 @@
+$theme: (
+  primary:#25252b,
+  secondary: #3f4449,
+  tertiary: #b3b3b3,
+  fourth: #777,
+  white: #FFFFFF,
+  highlight: #FFD700
+);
+
+@function theme-get($color) {
+  @return map-get($theme, $color);
+}

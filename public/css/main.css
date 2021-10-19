@@ -1,24 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
-body {
-  font-family: "Lato", sans-serif;
-}
-
-table.table.table-striped tr {
-  background-color: #25252b;
-}
-
-table.table.table-striped tr a.single {
-  color: #b3b3b3;
-}
-
-table.table.table-striped tr th {
-  color: #FFFFFF;
-}
-
-table.table.table-striped tr td {
-  color: #777;
-}
-
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #25252b;
 }
@@ -79,4 +59,24 @@ table.table.table-striped tr td {
   -webkit-transform: translate(-10px, -10px);
   transform: translate(-10px, -10px);
 }
-/*# sourceMappingURL=style.css.map */
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+table.table.table-striped tr {
+  background-color: #25252b;
+}
+
+table.table.table-striped tr a.single {
+  color: #b3b3b3;
+}
+
+table.table.table-striped tr th {
+  color: #FFFFFF;
+}
+
+table.table.table-striped tr td {
+  color: #777;
+}
+/*# sourceMappingURL=main.css.map */
