@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Employee = require('./models/employee')
 const Project = require('./models/project')
 const path = require('path')
+const open = require('open')
 
 // express app
 const app = express()
@@ -47,8 +48,14 @@ app.get(['/', '/employee'], (req, res) => {
 // ---- API DOCS  ----
 
 app.get('/docs', (req,res) => {
-    res.sendFile(path.join(__dirname+'/views/docs.html'));
+    // open in same tab
+    // res.sendFile(path.join(__dirname+'/views/docs.html'));
     //__dirname : It will resolve to your project folder.
+
+    // open in a new window
+    open(path.join(__dirname+'/views/docs.html'), function (err) {
+        if (err) throw err;    
+    });
 });
 
 // ---- EMPLOYEE ----
