@@ -696,8 +696,8 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
-        defs["Employee"] = {"type":"object","required":["address","birthday","dateHired","name","sex"],"properties":{"id":{"type":"string","format":"bson","example":"616d111b70b7ed9e2569bd1d"},"name":{"type":"string","example":"John Doe"},"birthday":{"type":"string","format":"date-time","example":"1990-07-16T00:00:00.000Z"},"sex":{"type":"string","example":"Male"},"address":{"type":"string","example":"Manila, NCR"},"projects":{"type":"array","items":{"type":"string","format":"bson"}},"dateHired":{"type":"string","format":"date-time","example":"2021-01-16T00:00:00.000Z"}}};
-        defs["Project"] = {"type":"object","required":["name"],"properties":{"id":{"type":"string","format":"bson","example":"616d111b70b7ed9e2569bd1d"},"name":{"type":"string","example":"The Great Project"},"employees":{"type":"array","items":{"type":"string","format":"bson"}}}};
+        defs["Employee"] = {"type":"object","required":["address","birthday","dateHired","name","sex"],"properties":{"_id":{"type":"string","format":"bson","example":"616d111b70b7ed9e2569bd1d"},"name":{"type":"string","example":"John Doe"},"birthday":{"type":"string","format":"date-time","example":"1990-07-16T00:00:00.000Z"},"sex":{"type":"string","example":"Male"},"address":{"type":"string","example":"Manila, NCR"},"projects":{"type":"array","items":{"type":"string","format":"bson"}},"dateHired":{"type":"string","format":"date-time","example":"2021-01-16T00:00:00.000Z"}}};
+        defs["Project"] = {"type":"object","required":["name"],"properties":{"_id":{"type":"string","format":"bson","example":"616d111b70b7ed9e2569bd1d"},"name":{"type":"string","example":"The Great Project"},"employees":{"type":"array","items":{"type":"string","format":"bson"}}}};
   </script>
 
   <div class="container-fluid">
@@ -712,7 +712,6 @@ margin-bottom: 20px;
 
               </div>
             -->
-            <!-- <li class="nav-fixed nav-header active" data-group="_"><a href="/">HOME</a></li> -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
                   <li class="nav-header" data-group="Employees"><a href="#api-Employees">API Methods - Employees</a></li>
@@ -1049,7 +1048,7 @@ $(document).ready(function() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/employee/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/employee/{_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1069,7 +1068,7 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Employees-deleteEmployeeById-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://employee-system-heroku.herokuapp.com/employee/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://employee-system-heroku.herokuapp.com/employee/{_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Employees-deleteEmployeeById-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1253,7 +1252,7 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">_id*</td>
 <td>
 
 
@@ -1360,7 +1359,7 @@ except ApiException as e:
                         <p class="marked">Returns a single employee</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/employee/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/employee/{_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1380,7 +1379,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Employees-getEmployeeById-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://employee-system-heroku.herokuapp.com/employee/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://employee-system-heroku.herokuapp.com/employee/{_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Employees-getEmployeeById-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1564,7 +1563,7 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">_id*</td>
 <td>
 
 
@@ -1934,7 +1933,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/employee/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/employee/{_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1954,7 +1953,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Employees-updateEmployeeById-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://employee-system-heroku.herokuapp.com/employee/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://employee-system-heroku.herokuapp.com/employee/{_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Employees-updateEmployeeById-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2018,11 +2017,11 @@ public class EmployeesApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Employees-updateEmployeeById-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // ID of employee that needs to be updated
-String *name = name_example; // Updated name of employee
-Date *birthday = 2013-10-20T19:20:30+01:00; // Updated birthday of employee
-String *sex = sex_example; // Updated sex of employee
-String *address = address_example; // Updated address of employee
-Date *dateHired = 2013-10-20T19:20:30+01:00; // Updated dateHired of employee
+String *name = name_example; // Updated name of employee (optional)
+Date *birthday = 2013-10-20T19:20:30+01:00; // Updated birthday of employee (optional)
+String *sex = sex_example; // Updated sex of employee (optional)
+String *address = address_example; // Updated address of employee (optional)
+Date *dateHired = 2013-10-20T19:20:30+01:00; // Updated dateHired of employee (optional)
 array[String] *projects = ; // Updated projects of employee (optional)
 
 EmployeesApi *apiInstance = [[EmployeesApi alloc] init];
@@ -2053,17 +2052,12 @@ var api = new EmployeeManagementApi.EmployeesApi()
 
 var id = id_example; // {String} ID of employee that needs to be updated
 
-var name = name_example; // {String} Updated name of employee
-
-var birthday = 2013-10-20T19:20:30+01:00; // {Date} Updated birthday of employee
-
-var sex = sex_example; // {String} Updated sex of employee
-
-var address = address_example; // {String} Updated address of employee
-
-var dateHired = 2013-10-20T19:20:30+01:00; // {Date} Updated dateHired of employee
-
 var opts = { 
+  'name': name_example, // {String} Updated name of employee
+  'birthday': 2013-10-20T19:20:30+01:00, // {Date} Updated birthday of employee
+  'sex': sex_example, // {String} Updated sex of employee
+  'address': address_example, // {String} Updated address of employee
+  'dateHired': 2013-10-20T19:20:30+01:00, // {Date} Updated dateHired of employee
   'projects':  // {array[String]} Updated projects of employee
 };
 
@@ -2074,7 +2068,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.updateEmployeeById(id, name, birthday, sex, address, dateHired, opts, callback);
+api.updateEmployeeById(id, opts, callback);
 </code></pre>
                             </div>
 
@@ -2097,11 +2091,11 @@ namespace Example
             
             var apiInstance = new EmployeesApi();
             var id = id_example;  // String | ID of employee that needs to be updated
-            var name = name_example;  // String | Updated name of employee
-            var birthday = 2013-10-20T19:20:30+01:00;  // Date | Updated birthday of employee
-            var sex = sex_example;  // String | Updated sex of employee
-            var address = address_example;  // String | Updated address of employee
-            var dateHired = 2013-10-20T19:20:30+01:00;  // Date | Updated dateHired of employee
+            var name = name_example;  // String | Updated name of employee (optional) 
+            var birthday = 2013-10-20T19:20:30+01:00;  // Date | Updated birthday of employee (optional) 
+            var sex = sex_example;  // String | Updated sex of employee (optional) 
+            var address = address_example;  // String | Updated address of employee (optional) 
+            var dateHired = 2013-10-20T19:20:30+01:00;  // Date | Updated dateHired of employee (optional) 
             var projects = new array[String](); // array[String] | Updated projects of employee (optional) 
 
             try
@@ -2175,16 +2169,16 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.EmployeesApi()
 id = id_example # String | ID of employee that needs to be updated
-name = name_example # String | Updated name of employee
-birthday = 2013-10-20T19:20:30+01:00 # Date | Updated birthday of employee
-sex = sex_example # String | Updated sex of employee
-address = address_example # String | Updated address of employee
-dateHired = 2013-10-20T19:20:30+01:00 # Date | Updated dateHired of employee
+name = name_example # String | Updated name of employee (optional)
+birthday = 2013-10-20T19:20:30+01:00 # Date | Updated birthday of employee (optional)
+sex = sex_example # String | Updated sex of employee (optional)
+address = address_example # String | Updated address of employee (optional)
+dateHired = 2013-10-20T19:20:30+01:00 # Date | Updated dateHired of employee (optional)
 projects =  # array[String] | Updated projects of employee (optional)
 
 try: 
     # Updates an employee in the system
-    api_response = api_instance.update_employee_by_id(id, name, birthday, sex, address, dateHired, projects=projects)
+    api_response = api_instance.update_employee_by_id(id, name=name, birthday=birthday, sex=sex, address=address, dateHired=dateHired, projects=projects)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmployeesApi->updateEmployeeById: %s\n" % e)</code></pre>
@@ -2199,7 +2193,7 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">_id*</td>
 <td>
 
 
@@ -2235,7 +2229,7 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                  <tr><td style="width:150px;">name*</td>
+                                  <tr><td style="width:150px;">name</td>
 <td>
 
 
@@ -2250,15 +2244,12 @@ except ApiException as e:
                         Updated name of employee
                     </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">birthday*</td>
+                                  <tr><td style="width:150px;">birthday</td>
 <td>
 
 
@@ -2276,15 +2267,12 @@ except ApiException as e:
                         Updated birthday of employee
                     </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">sex*</td>
+                                  <tr><td style="width:150px;">sex</td>
 <td>
 
 
@@ -2299,15 +2287,12 @@ except ApiException as e:
                         Updated sex of employee
                     </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">address*</td>
+                                  <tr><td style="width:150px;">address</td>
 <td>
 
 
@@ -2322,15 +2307,12 @@ except ApiException as e:
                         Updated address of employee
                     </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">dateHired*</td>
+                                  <tr><td style="width:150px;">dateHired</td>
 <td>
 
 
@@ -2348,9 +2330,6 @@ except ApiException as e:
                         Updated dateHired of employee
                     </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
@@ -2734,7 +2713,7 @@ $(document).ready(function() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/project/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/project/{_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -2754,7 +2733,7 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Projects-deleteProjectById-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://employee-system-heroku.herokuapp.com/project/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://employee-system-heroku.herokuapp.com/project/{_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Projects-deleteProjectById-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2938,7 +2917,7 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">_id*</td>
 <td>
 
 
@@ -3045,7 +3024,7 @@ except ApiException as e:
                         <p class="marked">Returns a single project</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/project/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/project/{_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -3065,7 +3044,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Projects-getProjectById-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://employee-system-heroku.herokuapp.com/project/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://employee-system-heroku.herokuapp.com/project/{_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Projects-getProjectById-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3249,7 +3228,7 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">_id*</td>
 <td>
 
 
@@ -3619,7 +3598,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/project/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/project/{_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -3639,7 +3618,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Projects-updateProjectById-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://employee-system-heroku.herokuapp.com/project/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://employee-system-heroku.herokuapp.com/project/{_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Projects-updateProjectById-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3695,7 +3674,7 @@ public class ProjectsApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Projects-updateProjectById-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // ID of project that needs to be updated
-String *name = name_example; // Updated name of the project
+String *name = name_example; // Updated name of the project (optional)
 array[String] *employees = ; // Updated employees of the project (optional)
 
 ProjectsApi *apiInstance = [[ProjectsApi alloc] init];
@@ -3722,9 +3701,8 @@ var api = new EmployeeManagementApi.ProjectsApi()
 
 var id = id_example; // {String} ID of project that needs to be updated
 
-var name = name_example; // {String} Updated name of the project
-
 var opts = { 
+  'name': name_example, // {String} Updated name of the project
   'employees':  // {array[String]} Updated employees of the project
 };
 
@@ -3735,7 +3713,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.updateProjectById(id, name, opts, callback);
+api.updateProjectById(id, opts, callback);
 </code></pre>
                             </div>
 
@@ -3758,7 +3736,7 @@ namespace Example
             
             var apiInstance = new ProjectsApi();
             var id = id_example;  // String | ID of project that needs to be updated
-            var name = name_example;  // String | Updated name of the project
+            var name = name_example;  // String | Updated name of the project (optional) 
             var employees = new array[String](); // array[String] | Updated employees of the project (optional) 
 
             try
@@ -3824,12 +3802,12 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.ProjectsApi()
 id = id_example # String | ID of project that needs to be updated
-name = name_example # String | Updated name of the project
+name = name_example # String | Updated name of the project (optional)
 employees =  # array[String] | Updated employees of the project (optional)
 
 try: 
     # Updates a project in the system
-    api_response = api_instance.update_project_by_id(id, name, employees=employees)
+    api_response = api_instance.update_project_by_id(id, name=name, employees=employees)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ProjectsApi->updateProjectById: %s\n" % e)</code></pre>
@@ -3844,7 +3822,7 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">_id*</td>
 <td>
 
 
@@ -3880,7 +3858,7 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                  <tr><td style="width:150px;">name*</td>
+                                  <tr><td style="width:150px;">name</td>
 <td>
 
 
@@ -3895,9 +3873,6 @@ except ApiException as e:
                         Updated name of the project
                     </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
