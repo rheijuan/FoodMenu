@@ -1,0 +1,31 @@
+{
+  "name": "foodmenu",
+  "version": "1.0.0",
+  "description": "API Assessment",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-extend": "^0.0.1",
+    "mongoose": "^6.0.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rheijuan/FoodMenu.git"
+  },
+  "keywords": [
+    "API",
+    "employee",
+    "management"
+  ],
+  "author": "Group 5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rheijuan/FoodMenu/issues"
+  },
+  "homepage": "https://github.com/rheijuan/FoodMenu#readme"
+}
