@@ -145,67 +145,45 @@ app.post('/employees/:id', (req, res) => {
     const id = req.params.id
     if (req.body.projects == null) {
         req.body.projects = []
-        console.log(req.body)
     }
 
-    Employee.findById(id, function (err_1, docs_1) {
-        var arrA = docs_1.projects
+    Employee.findByIdAndUpdate(id, req.body).then(employee => {
+        var arrA = employee.projects
         var arrB = req.body.projects
 
         var old_projects = arrA.filter(x => !arrB.includes(x));
         var new_projects = arrB.filter(x => !arrA.includes(x));
 
-        console.log(arrA)
-        console.log(arrB)
-        console.log(old_projects)
-        console.log(new_projects)
-
-        Project.updateMany(
-            { _id: { $in: old_projects } }, 
-            { $pull: {employees: id} },
-            (err_2, docs_2) => {}
-        )
-
-        Project.updateMany(
-            { _id: { $in: new_projects } }, 
-            { $push: {employees: id} },
-            (err_3, docs_3) => {}
-        )
-
-    });
-
-    Employee.findByIdAndUpdate(id, req.body)
-    .then(result => {
-        Employee.find().then((result) => {
-            Project.find().then((projects) => {
-                res.render('index', {employees: result, projects: projects})
+        Project.updateMany({
+            _id: { $in: old_projects } }, 
+            { $pull: {employees: id} })
+        .then(old_projects_res => {
+            Project.updateMany(
+                {_id: { $in: new_projects } }, 
+                { $push: {employees: id} })
+            .then(new_projects_res => {
+                res.redirect('/')
             })
         })
-    }).catch(err => {
-        console.log(err)
+        
     })
+
 })
 
 // 3. DELETE Employee
 app.delete('/employees/:id', (req, res) => {
     const id = req.params.id
 
-    Employee.findById(id, function (err_1, employee) {
-
-        // console.log(docs_1.employees)
+    Employee.findById(id).then(employee => {
         Project.updateMany(
             { _id: { $in: employee.projects } }, 
             { $pull: {employees: id} },
-            (err_2, docs_2) => {}
-        )
-
-        Employee.findByIdAndDelete(id).then(result => {
-            res.json({ redirect: '/'})
-        }).catch(err => {
-            console.log(err)
+        ).then(projects_res => {
+            Employee.findByIdAndDelete(id).then(result => {
+                res.json({ redirect: '/'})
+            })
         })
-
-    });
+    })
 
 })
 
@@ -227,61 +205,44 @@ app.post('/projects/:id', (req, res) => {
     const id = req.params.id
     if (req.body.employees == null) {
         req.body.employees = []
-        console.log(req.body)
     }
-    
-    Project.findById(id, function (err_1, docs_1) {
-        var arrA = docs_1.employees
+
+    Project.findByIdAndUpdate(id, req.body).then(project => {
+        var arrA = project.employees
         var arrB = req.body.employees
 
         var old_employees = arrA.filter(x => !arrB.includes(x));
         var new_employees = arrB.filter(x => !arrA.includes(x));
 
-        Employee.updateMany(
-            { _id: { $in: old_employees } }, 
-            { $pull: {projects: id} },
-            (err_2, docs_2) => {}
-        )
-
-        Employee.updateMany(
-            { _id: { $in: new_employees } }, 
-            { $push: {projects: id} },
-            (err_3, docs_3) => {}
-        )
-
-    });
-    
-
-    Project.findByIdAndUpdate(id, req.body)
-    .then(result => {
-        Project.find().then((projects) => {
-            Employee.find().then((employees) => {
-                res.render('project/display' , {projects: projects, employees: employees});
+        Employee.updateMany({
+            _id: { $in: old_employees } }, 
+            { $pull: {projects: id} })
+        .then(old_employees_res => {
+            Employee.updateMany(
+                {_id: { $in: new_employees } }, 
+                { $push: {projects: id} })
+            .then(new_employees_res => {
+                res.redirect('/projects')
             })
         })
-    }).catch(err => {
-        console.log(err)
+        
     })
+    
 })
 
 // 3. DELETE Project
 app.delete('/projects/:id', (req, res) => {
     const id = req.params.id
 
-    Project.findById(id, function (err_1, project) {
-
+    Project.findById(id).then(project => {
         Employee.updateMany(
             { _id: { $in: project.employees } }, 
             { $pull: {projects: id} },
-            (err_2, docs_2) => {}
-        )
-
-        Project.findByIdAndDelete(id).then(result => {
-            res.json({ redirect: '/projects'})
-        }).catch(err => {
-            console.log(err)
+        ).then(employees_res => {
+            Project.findByIdAndDelete(id).then(result => {
+                res.json({ redirect: '/projects'})
+            })
         })
-
-    });
+    })
 
 })

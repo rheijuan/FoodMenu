@@ -27,10 +27,9 @@
               <td><%= employee.sex %></td>
               <td>
                 <%
-                  var i = 0
                   employee.projects.forEach(employee_project => {
                     projects.forEach(project => {
-                      if(employee_project == project._id) { %>
+                      if(String(employee_project) == (project._id)) { %>
                         <ul>  
                           <li> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </li>
                         </ul>
@@ -38,6 +37,7 @@
                     })
                   }) 
                 %>
+    
               </td>
               <td><%= employee.address %></td>
               <td><%= employee.dateHired %></td>

@@ -27,7 +27,7 @@
                                     <% j = 0 %>
                                     <% project.employees.forEach(project_employee => { %>
                                         <% employees.forEach(employee => { %>
-                                            <% if(project_employee == employee._id) { %>
+                                            <% if(String(project_employee) == String(employee._id)) { %>
                                                 <li><%= employee.name %></li>
                                             <% } %>
                                         <% }) %>
