@@ -19,9 +19,9 @@ app.use(express.urlencoded())
 const dbURI = 'mongodb+srv://root:root@foodmenuapp.7r05l.mongodb.net/Items?retryWrites=true&w=majority'
 mongoose.connect(dbURI)
     .then((result) => {
+        console.log('Listening...')
         app.listen(process.env.PORT || 3000)
-    })
-    .catch((err) => console.log(err))
+    }).catch((err) => console.log(err))
 
 // ------------ ROUTING ------------
 
