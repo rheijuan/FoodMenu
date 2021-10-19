@@ -69,7 +69,11 @@ table.table.table-striped tr {
 }
 
 table.table.table-striped tr a.single {
-  color: #b3b3b3;
+  color: #27e8a7;
+}
+
+table.table.table-striped tr a.single:hover {
+  color: #FFD700;
 }
 
 table.table.table-striped tr th {
@@ -77,6 +81,6 @@ table.table.table-striped tr th {
 }
 
 table.table.table-striped tr td {
-  color: #777;
+  color: #FFFFFF;
 }
 /*# sourceMappingURL=main.css.map */

@@ -10,7 +10,11 @@ table.table.table-striped tr {
   background-color: theme-get(primary);
 
   a.single {
-    color: theme-get(tertiary);
+    color: theme-get(link);
+
+    &:hover {
+      color: theme-get(highlight);
+    }
   }
 
   th {
@@ -18,6 +22,6 @@ table.table.table-striped tr {
   }
 
   td {
-    color: theme-get(fourth);
+    color: theme-get(white);
   }
 }
