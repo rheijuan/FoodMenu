@@ -32,7 +32,7 @@ mongoose.connect(dbURI)
 
 // ---- HOMEPAGE ----
 
-app.get(['/', '/employees'], (req, res) => {
+app.get(['/', '/employee'], (req, res) => {
     Project.find().then((projects) => {
         Employee.find().then((employees) => {
             res.render('index' , {projects: projects, employees: employees});
@@ -48,7 +48,7 @@ app.get('/employee/add', (req, res) => {
 })
 
 // Details Page
-app.get('/employees/:id', (req, res) => {
+app.get('/employee/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
         Project.find().then((projects) => {
@@ -60,7 +60,7 @@ app.get('/employees/:id', (req, res) => {
 })
 
 // Update Page
-app.get('/employees/update/:id', (req, res) => {
+app.get('/employee/update/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
         Project.find().then((projects) => {
@@ -74,7 +74,7 @@ app.get('/employees/update/:id', (req, res) => {
 // ---- PROJECTS ----
 
 // Display Page (index for projects)
-app.get('/projects', (req, res) => {
+app.get('/project', (req, res) => {
     Project.find().then((projects) => {
         Employee.find().then((employees) => {
             res.render('project/display' , {projects: projects, employees: employees});
@@ -83,12 +83,12 @@ app.get('/projects', (req, res) => {
 })
 
 // Add Page
-app.get('/projects/add', (req, res) => {
+app.get('/project/add', (req, res) => {
     res.render('project/form')
 })
 
 // Details Page
-app.get('/projects/:id', (req, res) => {
+app.get('/project/:id', (req, res) => {
     const id = req.params.id
 
     Project.findById(id).then(project => {
@@ -101,7 +101,7 @@ app.get('/projects/:id', (req, res) => {
 })
 
 // Update Page
-app.get('/projects/update/:id', (req, res) => {
+app.get('/project/update/:id', (req, res) => {
     const id = req.params.id
     Project.findById(id).then(project => {
         Employee.find().then(employees => {
@@ -205,7 +205,7 @@ app.post('/project', (req,res) => {
 
     const project = new Project(req.body)
     project.save().then((result) => {
-        res.redirect('/projects')
+        res.redirect('/project')
     }).catch((err) => {
         console.log(err)
     })
@@ -235,7 +235,7 @@ app.post('/project/:id', (req, res) => {
                 {_id: { $in: new_employees } }, 
                 { $push: {projects: id} })
             .then(new_employees_res => {
-                res.redirect('/projects')
+                res.redirect('/project')
             })
         })
         
@@ -254,7 +254,7 @@ app.delete('/project/:id', (req, res) => {
             { $pull: {projects: id} },
         ).then(employees_res => {
             Project.findByIdAndDelete(id).then(result => {
-                res.json({ redirect: '/projects'})
+                res.json({ redirect: '/project'})
             })
         })
     })

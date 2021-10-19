@@ -22,7 +22,7 @@
       <% if(employees.length > 0) { %>
         <% employees.forEach(employee => { %>
             <tr>
-              <td><a class='single' href='/employees/<%= employee._id %>'> <%= employee.name %></a></td>
+              <td><a class='single' href='/employee/<%= employee._id %>'> <%= employee.name %></a></td>
               <td><%= employee.birthday %></td>
               <td><%= employee.sex %></td>
               <td>
@@ -31,7 +31,7 @@
                     projects.forEach(project => {
                       if(String(employee_project) == (project._id)) { %>
                         <ul>  
-                          <li> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </li>
+                          <li> <a class='single' href='/project/<%= project._id %>'> <%= project.name %> </a> </li>
                         </ul>
                       <%}
                     })
