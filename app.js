@@ -2,9 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Employee = require('./models/employee')
 const Project = require('./models/project')
+const path = require('path')
 
 // express app
 const app = express()
+
+// public/static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // express extend
 app.engine('ejs', require('express-ejs-extend'));
