@@ -151,6 +151,7 @@ app.post('/add-employee', (req, res) => {
 app.post('/employee', (req,res) => {
     console.log('POST/ employee')
     
+    const employee = new Employee(req.body)
     employee.save().then((result) => {
         res.redirect('/')
     }).catch((err) => {
