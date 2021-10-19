@@ -4,7 +4,7 @@
 
 <% 
     method = locals.employee ? 'Update' : 'Add';
-    action = method === 'Add' ?  '/employees/add' : '/employees/' + employee._id;
+    action = method === 'Add' ?  '/employee' : '/employee/' + employee._id;
     employee_name = method === "Add" ? "" : employee.name;
     employee_birthday = method === "Add" ? "" : employee.birthday;
     employee_sex = method === "Add" ? "" : employee.sex;

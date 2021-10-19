@@ -36,7 +36,7 @@ app.get(['/', '/employees'], (req, res) => {
 // ---- EMPLOYEE ----
 
 // Add Page
-app.get('/employees/add', (req, res) => {
+app.get('/employee/add', (req, res) => {
     res.render('employee/form')
 })
 
@@ -130,10 +130,11 @@ app.post('/add-employee', (req, res) => {
 })
 
 // 1. ADD Employee
-app.post('/employees/add', (req,res) => {
+app.post('/employee', (req,res) => {
+    console.log('POST/ employee')
+
     const employee = new Employee(req.body)
     employee.save().then((result) => {
-        console.log('Adding employee through UI')
         res.redirect('/')
     }).catch((err) => {
         console.log(err)
@@ -141,11 +142,12 @@ app.post('/employees/add', (req,res) => {
 })
 
 // 2. UPDATE Employee
-app.post('/employees/:id', (req, res) => {
+app.post('/employee/:id', (req, res) => {
+    console.log('PUT/ employee/:id')
+
     const id = req.params.id
     if (req.body.projects == null) {
         req.body.projects = []
-        console.log(req.body)
     }
 
     Employee.findById(id, function (err_1, docs_1) {
@@ -154,11 +156,6 @@ app.post('/employees/:id', (req, res) => {
 
         var old_projects = arrA.filter(x => !arrB.includes(x));
         var new_projects = arrB.filter(x => !arrA.includes(x));
-
-        console.log(arrA)
-        console.log(arrB)
-        console.log(old_projects)
-        console.log(new_projects)
 
         Project.updateMany(
             { _id: { $in: old_projects } }, 
@@ -187,12 +184,12 @@ app.post('/employees/:id', (req, res) => {
 })
 
 // 3. DELETE Employee
-app.delete('/employees/:id', (req, res) => {
+app.delete('/employee/:id', (req, res) => {
+    console.log('DELETE/ employee/:id')
     const id = req.params.id
 
     Employee.findById(id, function (err_1, employee) {
 
-        // console.log(docs_1.employees)
         Project.updateMany(
             { _id: { $in: employee.projects } }, 
             { $pull: {employees: id} },
@@ -212,10 +209,11 @@ app.delete('/employees/:id', (req, res) => {
 // ---- PROJECT ----
 
 // 1. ADD Project
-app.post('/projects/add', (req,res) => {
+app.post('/project', (req,res) => {
+    console.log('POST/ project')
+
     const project = new Project(req.body)
     project.save().then((result) => {
-        console.log('Adding project through UI')
         res.redirect('/projects')
     }).catch((err) => {
         console.log(err)
@@ -223,7 +221,9 @@ app.post('/projects/add', (req,res) => {
 })
 
 // 2. UPDATE Project
-app.post('/projects/:id', (req, res) => {
+app.post('/project/:id', (req, res) => {
+    console.log('PUT/ project/:id')
+
     const id = req.params.id
     if (req.body.employees == null) {
         req.body.employees = []
@@ -265,7 +265,8 @@ app.post('/projects/:id', (req, res) => {
 })
 
 // 3. DELETE Project
-app.delete('/projects/:id', (req, res) => {
+app.delete('/project/:id', (req, res) => {
+    console.log('DELETE/ project:id')
     const id = req.params.id
 
     Project.findById(id, function (err_1, project) {
