@@ -1,0 +1,87 @@
+// @import url('');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@500&display=swap');
+
+$font-1: 'Montserrat', sans-serif;
+$font-2: 'Lato', sans-serif;
+
+$fonts: (
+  montserrat: $font-1,
+  lato: $font-2
+);
+
+@function font-get($font) {
+  @return map-get($fonts, $font);
+}
+
+$font-size: (
+  big: 2em,
+  medium: 1.25em,
+  small: 1em,
+  tiny: 0.25em
+);
+
+@function fsize-get($fsize) {
+  @return map-get($font-size, $fsize);
+}
+
+$theme: (
+  primary: rgba(0,0,0,1),
+  black:#000000,
+  white: #FFFFFF,
+  highlight: #FFD700
+);
+
+@function theme-get($color) {
+  @return map-get($theme, $color);
+}
+
+body {
+  font-family: font-get(lato);
+}
+
+#menu-bar {
+  background-color: theme-get(primary);
+
+  .navbar-brand > * {
+    display: block;
+    font-family: font-get(montserrat);
+    font-weight: bolder;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  #navbar-brand-big {
+    font-size: fsize-get(medium);
+  }
+
+  #navbar-brand-small {
+    font-size: fsize-get(tiny);
+  }
+}
+
+.card {
+  
+  a.single {
+    font-family: font-get(montserrat);
+    color: theme-get(white);
+  }
+
+  .highlight {
+    color: theme-get(highlight);
+  }
+
+  color: theme-get(white);
+  background: linear-gradient(312deg, rgba(0,0,0,1) 0%, rgba(63,68,73,1) 100%);
+  transition: 0.5s ease;
+  border: 0px;
+
+  &:hover {
+    background: linear-gradient(22deg, rgba(0,0,0,1) 0%, rgba(63,68,73,1) 100%);
+    -moz-transform: translate(-10px, -10px);
+    -webkit-transform: translate(-10px, -10px);
+    -o-transform: translate(-10px, -10px);
+    -ms-transform: translate(-10px, -10px);
+    transform: translate(-10px, -10px);
+  }
+
+}

@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@500&display=swap");
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#menu-bar {
+  background-color: black;
+}
+
+#menu-bar .navbar-brand > * {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+#menu-bar #navbar-brand-big {
+  font-size: 1.25em;
+}
+
+#menu-bar #navbar-brand-small {
+  font-size: 0.25em;
+}
+
+.card {
+  color: #FFFFFF;
+  background: linear-gradient(312deg, black 0%, #3f4449 100%);
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+  border: 0px;
+}
+
+.card a.single {
+  font-family: "Montserrat", sans-serif;
+  color: #FFFFFF;
+}
+
+.card .highlight {
+  color: #FFD700;
+}
+
+.card:hover {
+  background: linear-gradient(22deg, black 0%, #3f4449 100%);
+  -webkit-transform: translate(-10px, -10px);
+  transform: translate(-10px, -10px);
+}
+/*# sourceMappingURL=style.css.map */
