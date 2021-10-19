@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const path = require('path');
 const Employee = require('./models/employee')
 const Project = require('./models/project')
 
@@ -34,6 +35,13 @@ app.get(['/', '/employee'], (req, res) => {
         })
     })
 })
+
+// ---- API DOCS  ----
+
+app.get('/docs', (req,res) => {
+    res.sendFile(path.join(__dirname+'/views/docs.html'));
+    //__dirname : It will resolve to your project folder.
+});
 
 // ---- EMPLOYEE ----
 
