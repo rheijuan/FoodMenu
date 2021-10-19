@@ -1,10 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
 body {
   font-family: "Lato", sans-serif;
 }
 
+table.table.table-striped tr {
+  background-color: #25252b;
+}
+
+table.table.table-striped tr a.single {
+  color: #b3b3b3;
+}
+
+table.table.table-striped tr th {
+  color: #FFFFFF;
+}
+
+table.table.table-striped tr td {
+  color: #777;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #25252b;
+}
+
 #menu-bar {
-  background-color: black;
+  background-color: #25252b;
 }
 
 #menu-bar .navbar-brand > * {
@@ -36,8 +56,22 @@ body {
   color: #FFFFFF;
 }
 
+.card .card-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+
+.card .card-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+
 .card .highlight {
   color: #FFD700;
+}
+
+.card .list-group-item {
+  background-color: transparent;
 }
 
 .card:hover {

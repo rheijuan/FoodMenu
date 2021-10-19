@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const path = require('path');
 const Employee = require('./models/employee')
 const Project = require('./models/project')
 const path = require('path')

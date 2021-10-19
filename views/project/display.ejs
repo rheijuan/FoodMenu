@@ -19,7 +19,7 @@
             <% } %>
                 <div class="card">
                     <div class="card-body">
-                        <b> <a class='single' href='/project/<%= project._id %>'> <%= project.name %> </a> </b>
+                        <a class='single' href='/project/<%= project._id %>'> <b><%= project.name %> </b></a>
                         <p class="card-text">
                             <% if (project.employees.length > 0){ %>
                                 <i> <p> Assigned employees: </p> </i>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="card-footer">
                         <!-- class="text-muted" -->
-                        <small class="highlight">Total: <%= project.employees.length %></small>
+                        <small class="highlight"><b>Total: <%= project.employees.length %></b></small>
                     </div>
                 </div>
             <% if(i % 3 == 0) { %>
