@@ -37,7 +37,7 @@ mongoose.connect(dbURI)
 
 // ---- HOMEPAGE ----
 
-app.get(['/', '/employee'], (req, res) => {
+app.get(['/', '/employees'], (req, res) => {
     Project.find().then((projects) => {
         Employee.find().then((employees) => {
             res.render('index' , {projects: projects, employees: employees});
@@ -61,7 +61,7 @@ app.get('/docs', (req,res) => {
 // ---- EMPLOYEE ----
 
 // Add Page
-app.get('/employee/add', (req, res) => {
+app.get('/employees/add', (req, res) => {
 
     var error = {
         message: ''
@@ -71,7 +71,7 @@ app.get('/employee/add', (req, res) => {
 })
 
 // Details Page
-app.get('/employee/:id', (req, res) => {
+app.get('/employees/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
         Project.find().then((projects) => {
@@ -83,7 +83,7 @@ app.get('/employee/:id', (req, res) => {
 })
 
 // Update Page
-app.get('/employee/update/:id', (req, res) => {
+app.get('/employees/update/:id', (req, res) => {
     const id = req.params.id
     var error = {
         message: ''
@@ -101,7 +101,7 @@ app.get('/employee/update/:id', (req, res) => {
 // ---- PROJECTS ----
 
 // Display Page (index for projects)
-app.get('/project', (req, res) => {
+app.get('/projects', (req, res) => {
     Project.find().then((projects) => {
         Employee.find().then((employees) => {
             res.render('project/display' , {projects: projects, employees: employees});
@@ -110,12 +110,12 @@ app.get('/project', (req, res) => {
 })
 
 // Add Page
-app.get('/project/add', (req, res) => {
+app.get('/projects/add', (req, res) => {
     res.render('project/form')
 })
 
 // Details Page
-app.get('/project/:id', (req, res) => {
+app.get('/projects/:id', (req, res) => {
     const id = req.params.id
 
     Project.findById(id).then(project => {
@@ -128,7 +128,7 @@ app.get('/project/:id', (req, res) => {
 })
 
 // Update Page
-app.get('/project/update/:id', (req, res) => {
+app.get('/projects/update/:id', (req, res) => {
     const id = req.params.id
     Project.findById(id).then(project => {
         Employee.find().then(employees => {
@@ -187,8 +187,8 @@ app.post('/add-employee', (req, res) => {
 })
 
 // 1. ADD Employee
-app.post('/employee', (req,res) => {
-    console.log('POST/ employee')
+app.post('/employees', (req,res) => {
+    console.log('POST/ employees')
 
     var error = {
         'message': ''
@@ -208,8 +208,8 @@ app.post('/employee', (req,res) => {
 })
 
 // 2. UPDATE Employee
-app.post('/employee/:id', (req, res) => {
-    console.log('PUT/ employee/:id')
+app.post('/employees/:id', (req, res) => {
+    console.log('PUT/ employees/:id')
 
     const id = req.params.id
     var error = {
@@ -254,8 +254,8 @@ app.post('/employee/:id', (req, res) => {
 })
 
 // 3. DELETE Employee
-app.delete('/employee/:id', (req, res) => {
-    console.log('DELETE/ employee/:id')
+app.delete('/employees/:id', (req, res) => {
+    console.log('DELETE/ employees/:id')
     const id = req.params.id
 
     Employee.findById(id).then(employee => {
@@ -274,20 +274,20 @@ app.delete('/employee/:id', (req, res) => {
 // ---- PROJECT ----
 
 // 1. ADD Project
-app.post('/project', (req,res) => {
-    console.log('POST/ project')
+app.post('/projects', (req,res) => {
+    console.log('POST/ projects')
 
     const project = new Project(req.body)
     project.save().then((result) => {
-        res.redirect('/project')
+        res.redirect('/projects')
     }).catch((err) => {
         console.log(err)
     })
 })
 
 // 2. UPDATE Project
-app.post('/project/:id', (req, res) => {
-    console.log('PUT/ project/:id')
+app.post('/projects/:id', (req, res) => {
+    console.log('PUT/ projects/:id')
 
     const id = req.params.id
     if (req.body.employees == null) {
@@ -309,7 +309,7 @@ app.post('/project/:id', (req, res) => {
                 {_id: { $in: new_employees } }, 
                 { $push: {projects: id} })
             .then(new_employees_res => {
-                res.redirect('/project')
+                res.redirect('/projects')
             })
         })
         
@@ -318,7 +318,7 @@ app.post('/project/:id', (req, res) => {
 })
 
 // 3. DELETE Project
-app.delete('/project/:id', (req, res) => {
+app.delete('/projects/:id', (req, res) => {
     console.log('DELETE/ project:id')
     const id = req.params.id
 
@@ -328,7 +328,7 @@ app.delete('/project/:id', (req, res) => {
             { $pull: {projects: id} },
         ).then(employees_res => {
             Project.findByIdAndDelete(id).then(result => {
-                res.json({ redirect: '/project'})
+                res.json({ redirect: '/projects'})
             })
         })
     })

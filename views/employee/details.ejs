@@ -22,7 +22,7 @@
                 employee.projects.forEach(employee_project => {
                     projects.forEach(project => {
                         if(String(employee_project) == String(project._id)) { %>
-                            <a class='single' href='/project/<%= project._id %>'> <%= project.name %> </a> 
+                            <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> 
                         <% 
                             if(i < employee.projects.length - 1) { %>
                                 ,
@@ -38,7 +38,7 @@
         </ul>
         <div class="card-body">
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteEmployeeModal"> Delete </button>
-            <a type='button' class='btn btn-primary text-white' href='/employee/update/<%= employee._id %>'> Update </a>
+            <a type='button' class='btn btn-primary text-white' href='/employees/update/<%= employee._id %>'> Update </a>
         </div>
     </div>
 </div>
@@ -70,7 +70,7 @@
     const trashcan = document.querySelector('a.delete')
 
     trashcan.addEventListener('click', (e) => {
-        const endpoint = `/employee/${trashcan.dataset.doc}`
+        const endpoint = `/employees/${trashcan.dataset.doc}`
 
         fetch(endpoint, {
             method: 'DELETE'

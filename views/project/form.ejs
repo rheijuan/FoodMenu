@@ -4,7 +4,7 @@
 
 <% 
     method = locals.project ? 'Update' : 'Add';
-    action = method === 'Add' ?  '/project' : '/project/' + project._id;
+    action = method === 'Add' ?  '/projects' : '/projects/' + project._id;
     project_name = method === "Add" ? "" : project.name;
 %>
 
