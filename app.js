@@ -50,6 +50,7 @@ app.get('/docs', (req,res) => {
 
     // open in a new window
     open(path.join(__dirname+'/views/docs.html'), function (err) {
+        console.log(err)
         if (err) throw err;    
     });
 });
