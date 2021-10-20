@@ -62,7 +62,12 @@ app.get('/docs', (req,res) => {
 
 // Add Page
 app.get('/employee/add', (req, res) => {
-    res.render('employee/form')
+
+    var error = {
+        message: ''
+    }
+
+    res.render('employee/form', {error : error})
 })
 
 // Details Page
@@ -157,16 +162,24 @@ app.post('/add-employee', (req, res) => {
 // 1. ADD Employee
 app.post('/employee', (req,res) => {
     console.log('POST/ employee')
+
+    var error = {
+        'message': ''
+    }
     
     // --- FORM VALIDATION --- //
     // if birthday is past the present
     if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0)) {
         console.log('past today')
+        error.message = 'Birthday is past the present date'
+        res.render('employee/form', {error: error})
     }
     else {
         // if birthday is past the hiring date
         if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date(req.body.dateHired).setHours(0, 0, 0, 0)) {
             console.log('birthday > hiring date')
+            error.message = 'Birthday is past the hiring date'
+            res.render('employee/form', {error: error})
         }
         // else, valid date inputs
         else {

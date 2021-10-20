@@ -10,6 +10,7 @@
     employee_sex = method === "Add" ? "" : employee.sex;
     employee_address = method === "Add" ? "" : employee.address;
     employee_dateHired = method === "Add" ? "" : employee.dateHired;
+    message = error.message
 %>
 
 <br><br>
@@ -85,6 +86,9 @@
                                     </select>
                                 </div>
                             </div>
+                        <% } %>
+                        <% if(message != '') { %>
+                            <h7> *<%= message %> </h7>
                         <% } %>
                         <div class="form-group">
                             <button class="btn btn-primary btn-lg btn-block login-button"><%= method %> Employee</button>
