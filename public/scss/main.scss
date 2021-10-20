@@ -1,0 +1,39 @@
+@import 'fonts';
+@import 'theme';
+@import 'override';
+@import 'shapes';
+@import '_tooltip';
+
+body {
+  font-family: font-get(lato);
+}
+
+table.table.table-striped tr {
+  background-color: theme-get(primary);
+
+  a.single {
+    color: theme-get(link);
+
+    &:hover {
+      color: theme-get(highlight);
+    }
+  }
+
+  th {
+    color: theme-get(white);
+  }
+
+  td {
+    color: theme-get(white);
+  }
+}
+  // border: 0px;
+
+  // &:hover {
+  //   background: linear-gradient(22deg, rgba(0,0,0,1) 0%, rgba(63,68,73,1) 100%);
+  //   -moz-transform: translate(-10px, -10px);
+  //   -webkit-transform: translate(-10px, -10px);
+  //   -o-transform: translate(-10px, -10px);
+  //   -ms-transform: translate(-10px, -10px);
+  //   transform: translate(-10px, -10px);
+  // }

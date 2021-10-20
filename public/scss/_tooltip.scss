@@ -1,0 +1,72 @@
+.circle.left .circle-span:after {
+  content: 'Can help in employee-project organization';
+}
+
+.circle.middle .circle-span:after {
+  content: 'Can help in work distribution';
+}
+
+.circle.right .circle-span:after {
+  content: 'Better planning';
+}
+
+.circle-span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  
+  cursor: pointer;
+  
+  &:before {
+    content: '';
+    display: none;
+    position: absolute;
+    z-index: 9998;
+    top: 45px;
+    left: 15px;
+    width: 0;
+    height: 0;
+    
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(0,0,0,.72);
+  }
+
+  &:after {
+    // content: 'Copy to Clipboard';
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 50px;
+    left: -37px;
+    width: 114px;
+    height: 36px;
+
+    color: #fff;
+    font-size: 5px;
+    line-height: 36px;
+    text-align: center;
+
+    background: rgba(0,0,0,.72);
+    border-radius: 3px;
+  }
+  
+  &:hover {
+    
+    &:before, &:after {
+      display: block;
+    }
+  }
+  
+  &:active, &:focus {
+    outline: none;
+    
+    &:after {
+      content: 'Copied!';
+    }
+  }
+}

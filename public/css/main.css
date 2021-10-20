@@ -1,9 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap");
+i[class*='gg'] {
+  --ggs: 2;
+}
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #25252b;
 }
 
 #menu-bar {
+  min-height: 80px;
   background-color: #25252b;
 }
 
@@ -58,6 +63,249 @@
   background: linear-gradient(22deg, black 0%, #3f4449 100%);
   -webkit-transform: translate(-10px, -10px);
   transform: translate(-10px, -10px);
+}
+
+.dot-strip {
+  position: relative;
+  height: calc(65vh - 40px);
+  width: 100%;
+  opacity: 0.9;
+  background: linear-gradient(90deg, #161122 21px, transparent 1%) center, linear-gradient(#161122 21px, transparent 1%) center, #a799cc;
+  background-size: 22px 22px;
+}
+
+.dot-strip .logo {
+  height: 22em;
+  width: 22em;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+.dot-strip .logo .triangle {
+  height: 22em;
+  width: 22em;
+  background: #333333;
+  background: linear-gradient(330deg, #333333 0%, #e9d362 100%);
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
+  -webkit-clip-path: polygon(50% 8%, 6% 83%, 94% 83%);
+          clip-path: polygon(50% 8%, 6% 83%, 94% 83%);
+}
+
+.dot-strip:hover .triangle {
+  height: 30em;
+  width: 30em;
+  background: url("../images/employee.jpg");
+  background-size: cover;
+  -webkit-clip-path: polygon(100% 34%, 25% 1%, 11% 95%);
+          clip-path: polygon(100% 34%, 25% 1%, 11% 95%);
+}
+
+.dot-strip .text {
+  color: white;
+  text-align: right;
+  padding: 1em;
+  margin-right: 10vw;
+}
+
+.dot-strip .text > * {
+  display: block;
+}
+
+.dot-strip .text .header {
+  font-size: 6.5em;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
+}
+
+.dot-strip .text .sub-header {
+  font-size: 1.25em;
+  font-family: "Montserrat", sans-serif;
+}
+
+.logo-sm {
+  height: 4em;
+  width: 4em;
+  background: #333333;
+  background: linear-gradient(330deg, #333333 0%, #e9d362 100%);
+  -webkit-clip-path: polygon(50% 8%, 6% 83%, 94% 83%);
+          clip-path: polygon(50% 8%, 6% 83%, 94% 83%);
+  margin-right: 1em;
+}
+
+.logo-sm:hover {
+  background: #333333;
+  background: linear-gradient(150deg, #333333 0%, #e9d362 100%);
+}
+
+.circle {
+  background-color: white;
+  font-family: "Merriweather Sans", sans-serif;
+  height: 16em;
+  width: 16em;
+  -webkit-clip-path: circle(32.5% at 50% 50%);
+          clip-path: circle(32.5% at 50% 50%);
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
+  position: absolute;
+  top: 100%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.circle.left {
+  left: 55%;
+}
+
+.circle.middle {
+  left: 70%;
+}
+
+.circle.right {
+  left: 85%;
+}
+
+.circle:hover {
+  line-height: 14em;
+  -webkit-clip-path: circle(40% at 50% 50%);
+          clip-path: circle(40% at 50% 50%);
+}
+
+.circle .circle-inner {
+  background: #ffafbd;
+  background: -webkit-gradient(linear, left bottom, left top, from(#ffafbd), to(#c9ffbf));
+  background: linear-gradient(0deg, #ffafbd 0%, #c9ffbf 100%);
+  height: 14em;
+  width: 14em;
+  -webkit-clip-path: circle(32.5% at 50% 50%);
+          clip-path: circle(32.5% at 50% 50%);
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+}
+
+.circle .circle-inner .before {
+  text-align: center;
+  -webkit-transition: 0.25s ease-out;
+  transition: 0.25s ease-out;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.circle .circle-inner .before.right {
+  top: 48%;
+  left: 46%;
+}
+
+.circle .circle-inner .after {
+  font-size: 1.25em;
+  -webkit-transition: 0.25s ease-out;
+  transition: 0.25s ease-out;
+  text-align: center;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.circle .circle-inner .after.right {
+  font-size: 2em;
+}
+
+.circle .circle-inner:hover {
+  line-height: 14em;
+  -webkit-clip-path: circle(50% at 50% 50%);
+          clip-path: circle(50% at 50% 50%);
+}
+
+.circle .circle-inner:hover .before {
+  opacity: 0;
+}
+
+.circle .circle-inner:hover .after {
+  opacity: 1;
+}
+
+.white-strip {
+  position: relative;
+  height: calc(35vh - 40px);
+  width: 100%;
+  background-color: transparent;
+}
+
+.circle.left .circle-span:after {
+  content: 'Can help in employee-project organization';
+}
+
+.circle.middle .circle-span:after {
+  content: 'Can help in work distribution';
+}
+
+.circle.right .circle-span:after {
+  content: 'Better planning';
+}
+
+.circle-span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.circle-span:before {
+  content: '';
+  display: none;
+  position: absolute;
+  z-index: 9998;
+  top: 45px;
+  left: 15px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.72);
+}
+
+.circle-span:after {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  top: 50px;
+  left: -37px;
+  width: 114px;
+  height: 36px;
+  color: #fff;
+  font-size: 5px;
+  line-height: 36px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.72);
+  border-radius: 3px;
+}
+
+.circle-span:hover:before, .circle-span:hover:after {
+  display: block;
+}
+
+.circle-span:active, .circle-span:focus {
+  outline: none;
+}
+
+.circle-span:active:after, .circle-span:focus:after {
+  content: 'Copied!';
 }
 
 body {

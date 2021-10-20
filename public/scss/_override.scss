@@ -1,0 +1,65 @@
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: theme-get(primary)
+}
+
+#menu-bar {
+  min-height: 80px;
+  background-color: theme-get(primary);
+
+  .navbar-brand > * {
+    display: block;
+    font-family: font-get(montserrat);
+    font-weight: bolder;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  #navbar-brand-big {
+    font-size: fsize-get(medium);
+  }
+
+  #navbar-brand-small {
+    font-size: fsize-get(tiny);
+  }
+}
+
+.card {
+  
+  a.single {
+    font-family: font-get(montserrat);
+    color: theme-get(white);
+  }
+
+  .card-title {
+    font-family: font-get(montserrat);
+    font-weight: bold;
+  }
+
+  .card-header {
+    font-family: font-get(montserrat);
+    font-weight: bold;
+  }
+
+  .highlight {
+    color: theme-get(highlight);
+  }
+
+  .list-group-item {
+    background-color: transparent;
+  }
+
+  color: theme-get(white);
+  background: linear-gradient(312deg, rgba(0,0,0,1) 0%, rgba(63,68,73,1) 100%);
+  transition: 0.5s ease;
+  border: 0px;
+
+  &:hover {
+    background: linear-gradient(22deg, rgba(0,0,0,1) 0%, rgba(63,68,73,1) 100%);
+    -moz-transform: translate(-10px, -10px);
+    -webkit-transform: translate(-10px, -10px);
+    -o-transform: translate(-10px, -10px);
+    -ms-transform: translate(-10px, -10px);
+    transform: translate(-10px, -10px);
+  }
+
+}
