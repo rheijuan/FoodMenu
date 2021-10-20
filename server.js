@@ -484,7 +484,7 @@ app.post('/projects/:id', (req, res) => {
        }
     }
     else {
-        res.status(400).send('Invalid input, object invalid')
+        res.status(200).send('')
     }
     
 })
