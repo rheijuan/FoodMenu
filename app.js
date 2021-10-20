@@ -85,9 +85,13 @@ app.get('/employee/:id', (req, res) => {
 // Update Page
 app.get('/employee/update/:id', (req, res) => {
     const id = req.params.id
+    var error = {
+        message: ''
+    }
+
     Employee.findById(id).then(result => {
         Project.find().then((projects) => {
-            res.render('employee/form', {employee: result, projects: projects})
+            res.render('employee/form', {employee: result, projects: projects, error:error})
         })
     }).catch(err => {
         console.log(err)
@@ -135,6 +139,29 @@ app.get('/project/update/:id', (req, res) => {
     })
 })
 
+// ------------ FUNCTION ------------
+// --- FORM VALIDATION FOR DATES --- //
+function valiDate(req, error) {
+    // if birthday is past the present
+    if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0)) {
+        console.log('past today')
+        error.message = 'Birthday is past the present date.'
+        return false
+    }
+    else {
+        // if birthday is past the hiring date
+        if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date(req.body.dateHired).setHours(0, 0, 0, 0)) {
+            console.log('birthday > hiring date')
+            error.message = 'Birthday is past the hiring date.'
+            return false
+        }
+        // else, valid date inputs
+        else {
+            return true
+        }
+    }
+}
+
 // ------------ APIS------------
 
 // ---- EMPLOYEE ----
@@ -166,38 +193,18 @@ app.post('/employee', (req,res) => {
     var error = {
         'message': ''
     }
-    
-    // --- FORM VALIDATION --- //
-    // if birthday is past the present
-    if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0)) {
-        console.log('past today')
-        error.message = 'Birthday is past the present date'
-        res.render('employee/form', {error: error})
+
+    if(valiDate(req, error)) {
+        const employee = new Employee(req.body)
+        employee.save().then((result) => {
+            res.redirect('/')
+        }).catch((err) => {
+            console.log(err)
+        })
     }
     else {
-        // if birthday is past the hiring date
-        if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date(req.body.dateHired).setHours(0, 0, 0, 0)) {
-            console.log('birthday > hiring date')
-            error.message = 'Birthday is past the hiring date'
-            res.render('employee/form', {error: error})
-        }
-        // else, valid date inputs
-        else {
-            const employee = new Employee(req.body)
-            employee.save().then((result) => {
-                res.redirect('/')
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
+        res.render('employee/form', {error: error})
     }
-
-    // const employee = new Employee(req.body)
-    // employee.save().then((result) => {
-    //     res.redirect('/')
-    // }).catch((err) => {
-    //     console.log(err)
-    // })
 })
 
 // 2. UPDATE Employee
@@ -205,31 +212,45 @@ app.post('/employee/:id', (req, res) => {
     console.log('PUT/ employee/:id')
 
     const id = req.params.id
+    var error = {
+        'message': ''
+    }
+
     if (req.body.projects == null) {
         req.body.projects = []
     }
 
-    Employee.findByIdAndUpdate(id, req.body).then(employee => {
-        var arrA = employee.projects
-        var arrB = req.body.projects
-
-        var old_projects = arrA.filter(x => !arrB.includes(x));
-        var new_projects = arrB.filter(x => !arrA.includes(x));
-
-        Project.updateMany({
-            _id: { $in: old_projects } }, 
-            { $pull: {employees: id} })
-        .then(old_projects_res => {
-            Project.updateMany(
-                {_id: { $in: new_projects } }, 
-                { $push: {employees: id} })
-            .then(new_projects_res => {
-                res.redirect('/')
+    if(valiDate(req, error)) {
+        Employee.findByIdAndUpdate(id, req.body).then(employee => {
+            var arrA = employee.projects
+            var arrB = req.body.projects
+    
+            var old_projects = arrA.filter(x => !arrB.includes(x));
+            var new_projects = arrB.filter(x => !arrA.includes(x));
+    
+            Project.updateMany({
+                _id: { $in: old_projects } }, 
+                { $pull: {employees: id} })
+            .then(old_projects_res => {
+                Project.updateMany(
+                    {_id: { $in: new_projects } }, 
+                    { $push: {employees: id} })
+                .then(new_projects_res => {
+                    res.redirect('/')
+                })
             })
+            
         })
-        
-    })
-
+    }
+    else {
+        Employee.findById(id).then(result => {
+            Project.find().then((projects) => {
+                res.render('employee/form', {employee: result, projects: projects, error:error})
+            })
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 })
 
 // 3. DELETE Employee
