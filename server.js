@@ -78,6 +78,9 @@ app.get('/employees/add', (req, res) => {
 app.get('/employees/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
+        if(result == null) {
+            res.status(404).send('Employee not found')
+        }
         Project.find().then((projects) => {
             res.status(200).send(result)
         })
@@ -107,6 +110,9 @@ app.get('/employees/update/:id', (req, res) => {
 // Display Page (index for projects)
 app.get('/projects', (req, res) => {
     Project.find().then((projects) => {
+        if(projects == null) {
+            res.status(404).send('Project not found')
+        }
         Employee.find().then((employees) => {
             res.status(200).send(projects)
         })
@@ -123,6 +129,9 @@ app.get('/projects/:id', (req, res) => {
     const id = req.params.id
 
     Project.findById(id).then(project => {
+        if(project == null) {
+            res.status(404).send('Project not found')
+        }
         Employee.find().then((employees) => {
             res.status(200).send(project)
         })
@@ -219,35 +228,35 @@ function validateAddEmployee(req, error) {
 }
 
 function validateUpdateEmployee(req, error) {
-    if(req.hasOwnProperty('sex')) {
+    if(req.body.hasOwnProperty('sex')) {
         if(!isValidSex(req.body.sex)) { // if not Male, Female, Prefer not to say
             console.log('invalid sex')
             return false
         }
     }
 
-    if(req.hasOwnProperty('birthday')) {
-        if(!isValidDate(req.body.birthday)) { // if not yyyy-mm-dd format
+    if(req.body.hasOwnProperty('birthday')) {
+        if(!isValidDate(String(req.body.birthday))) { // if not yyyy-mm-dd format
             console.log('invalid date')
             return false
         }
         else {
-            if(!isValidBirthday(req.body.birthday)) { // if birthday is past today
+            if(!isValidBirthday(String(req.body.birthday))) { // if birthday is past today
                 console.log('invalid birthday')
                 return false
             }
         }
     }
 
-    if(req.hasOwnProperty('dateHired')) {
-        if(!isValidDate(req.body.dateHired)) { // if not yyyy-mm-dd
+    if(req.body.hasOwnProperty('dateHired')) {
+        if(!isValidDate(String(req.body.dateHired))) { // if not yyyy-mm-dd
             console.log('invalid date')
             return false
         }
     }
 
-    if(req.hasOwnProperty('birthday') && req.hasOwnProperty('dateHired')) {
-        if(!isValidDate(req.body.birthday) || !isValidDate(req.body.dateHired)) { // if not yyyy-mm-dd
+    if(req.body.hasOwnProperty('birthday') && req.body.hasOwnProperty('dateHired')) {
+        if(!isValidDate(String(req.body.birthday)) || !isValidDate(String(req.body.dateHired))) { // if not yyyy-mm-dd
             console.log('invalid date')
             return false
         }
@@ -323,42 +332,56 @@ app.post('/employees/:id', (req, res) => {
         'message': ''
     }
 
-    if (req.body.projects == null) {
-        req.body.projects = []
-    }
+    // if (req.body.projects == null) {
+    //     req.body.projects = []
+    // }
     
     if(validateUpdateEmployee(req, error)) {
         Employee.findByIdAndUpdate(id, req.body).then(employee => {
-            var arrA = employee.projects
-            var arrB = req.body.projects
-    
-            var old_projects = arrA.filter(x => !arrB.includes(x));
-            var new_projects = arrB.filter(x => !arrA.includes(x));
-    
-            Project.updateMany({
-                _id: { $in: old_projects } }, 
-                { $pull: {employees: id} })
-            .then(old_projects_res => {
-                Project.updateMany(
-                    {_id: { $in: new_projects } }, 
-                    { $push: {employees: id} })
-                .then(new_projects_res => {
-                    // res.status(200).send(employee)
+            if(employee == null) {
+                res.status(404).send('Employee not found')
+            }
+            else {
+                // if req has projects param
+                projects = []
+                if(req.body.hasOwnProperty('projects')) {
+                    projects = req.body.projects
+                }
+                else {
+                    projects = employee.projects
+                }
+
+                // var arrA = employee.projects
+                // var arrB = req.body.projects
+        
+                // var old_projects = arrA.filter(x => !arrB.includes(x));
+                // var new_projects = arrB.filter(x => !arrA.includes(x));
+        
+                Project.updateMany({
+                    _id: { $in: projects } }, 
+                    { $pull: {employees: id} })
+                .then(old_projects_res => {
+                    Project.updateMany(
+                        {_id: { $in: projects } }, 
+                        { $push: {employees: id} })
+                    .then(new_projects_res => {
+                        // res.status(200).send(employee)
+                    }).catch((err) => {
+                        res.status(400).send('Invalid input, object invalid')
+                    })
                 }).catch((err) => {
                     res.status(400).send('Invalid input, object invalid')
                 })
-            }).catch((err) => {
-                res.status(400).send('Invalid input, object invalid')
-            })
+            }
         })
 
         Employee.findById(id).then(result => {
             Project.find().then((projects) => {
-                res.status(200).send(employee)
+                // res.status(200).send(req.body)
             })
-            res.json(req.body)
+            res.status(200).send(req.body)
         }).catch(err => {
-            res.status(400).send('Invalid input, object invalid')
+            // res.status(404).send('Employee not found')
         })
     }
     else {
@@ -372,12 +395,16 @@ app.delete('/employees/:id', (req, res) => {
     const id = req.params.id
 
     Employee.findById(id).then(employee => {
-       Project.updateMany(
+        if(employee == null) {
+            res.status(404).send('Employee not found')
+        }
+
+        Project.updateMany(
             { _id: { $in: employee.projects } }, 
             { $pull: {employees: id} },
         ).then(projects_res => {
             Employee.findByIdAndDelete(id).then(result => {
-                res.status(200).send('Successful deletion')
+                res.status(200).send('Successfully deleted')
             })
         })
     })
@@ -392,7 +419,7 @@ app.post('/projects', (req,res) => {
 
     const project = new Project(req.body)
     project.save().then((result) => {
-        res.status(200).send(result)
+        res.status(201).send(result)
     }).catch((err) => {
         console.log(err)
     })
@@ -403,30 +430,55 @@ app.post('/projects/:id', (req, res) => {
     console.log('PUT/ projects/:id')
 
     const id = req.params.id
-    if (req.body.employees == null) {
-        req.body.employees = []
-    }
+    // if (req.body.employees == null) {
+    //     req.body.employees = []
+    // }
+    
+    // if name is not null
+    if(req.body.hasOwnProperty('name')){
+        if(req.body.name != "") {
+            Project.findByIdAndUpdate(id, req.body).then(project => {
+                // if project id not found
+                if(project == null) {
+                    res.status(404).send('Project not found')
+                }
+                else {
+                    // if projects is not null
+                    employees = []
+                    if(req.body.hasOwnProperty('employees')) {
+                        employees = req.body.employees
+                    }
+                    else {
+                        employees = project.employees
+                    }
 
-    Project.findByIdAndUpdate(id, req.body).then(project => {
-        var arrA = project.employees
-        var arrB = req.body.employees
+                    // var arrA = project.employees
+                    // var arrB = req.body.employees
 
-        var old_employees = arrA.filter(x => !arrB.includes(x));
-        var new_employees = arrB.filter(x => !arrA.includes(x));
+                    // var old_employees = arrA.filter(x => !arrB.includes(x));
+                    // var new_employees = arrB.filter(x => !arrA.includes(x));
 
-        Employee.updateMany({
-            _id: { $in: old_employees } }, 
-            { $pull: {projects: id} })
-        .then(old_employees_res => {
-            Employee.updateMany(
-                {_id: { $in: new_employees } }, 
-                { $push: {projects: id} })
-            .then(new_employees_res => {
-                res.status(201).send(project)
+                    Employee.updateMany({
+                        _id: { $in: employees } }, 
+                        { $pull: {projects: id} })
+                    .then(old_employees_res => {
+                        Employee.updateMany(
+                            {_id: { $in: employees } }, 
+                            { $push: {projects: id} })
+                        .then(new_employees_res => {
+                            res.status(200).send(req.body)
+                        })
+                    })
+                }
             })
-        })
-        
-    })
+       }
+        else {
+            res.status(400).send('Invalid input, object invalid')
+       }
+    }
+    else {
+        res.status(400).send('Invalid input, object invalid')
+    }
     
 })
 
@@ -441,7 +493,7 @@ app.delete('/projects/:id', (req, res) => {
             { $pull: {projects: id} },
         ).then(employees_res => {
             Project.findByIdAndDelete(id).then(result => {
-                res.status(200).send('Deleted')
+                res.status(200).send("Successfully deleted")
             })
         })
     })
