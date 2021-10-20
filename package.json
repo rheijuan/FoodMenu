@@ -10,7 +10,6 @@
     "mongoose": "^6.0.11",
     "open": "^8.3.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "test",
     "start": "node app.js"
