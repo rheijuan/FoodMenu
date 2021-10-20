@@ -59,7 +59,7 @@ app.get('/docs', (req,res) => {
 app.get('/employees', (req, res) => {
     Project.find().then((projects) => {
         Employee.find().then((employees) => {
-            res.render('employee/display' , {projects: projects, employees: employees});
+            res.status(200).send(employees)
         })
     })
 })
@@ -79,7 +79,7 @@ app.get('/employees/:id', (req, res) => {
     const id = req.params.id
     Employee.findById(id).then(result => {
         Project.find().then((projects) => {
-            res.render('employee/details', {employee: result, projects: projects})
+            res.status(200).send(result)
         })
     }).catch(err => {
         console.log(err)
@@ -108,7 +108,7 @@ app.get('/employees/update/:id', (req, res) => {
 app.get('/projects', (req, res) => {
     Project.find().then((projects) => {
         Employee.find().then((employees) => {
-            res.render('project/display' , {projects: projects, employees: employees});
+            res.status(200).send(projects)
         })
     })
 })
@@ -124,7 +124,7 @@ app.get('/projects/:id', (req, res) => {
 
     Project.findById(id).then(project => {
         Employee.find().then((employees) => {
-            res.render('project/details' , {project: project, employees: employees});
+            res.status(200).send(project)
         })
     }).catch(err => {
         console.log(err)
