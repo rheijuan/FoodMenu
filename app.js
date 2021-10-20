@@ -37,12 +37,8 @@ mongoose.connect(dbURI)
 
 // ---- HOMEPAGE ----
 
-app.get(['/', '/employees'], (req, res) => {
-    Project.find().then((projects) => {
-        Employee.find().then((employees) => {
-            res.render('index' , {projects: projects, employees: employees});
-        })
-    })
+app.get('/', (req, res) => {
+    res.render('index');
 })
 
 // ---- API DOCS  ----
@@ -59,6 +55,14 @@ app.get('/docs', (req,res) => {
 });
 
 // ---- EMPLOYEE ----
+
+app.get('/employees', (req, res) => {
+    Project.find().then((projects) => {
+        Employee.find().then((employees) => {
+            res.render('employee/display' , {projects: projects, employees: employees});
+        })
+    })
+})
 
 // Add Page
 app.get('/employees/add', (req, res) => {
@@ -197,7 +201,7 @@ app.post('/employees', (req,res) => {
     if(valiDate(req, error)) {
         const employee = new Employee(req.body)
         employee.save().then((result) => {
-            res.redirect('/')
+            res.redirect('/employees')
         }).catch((err) => {
             console.log(err)
         })
@@ -236,7 +240,7 @@ app.post('/employees/:id', (req, res) => {
                     {_id: { $in: new_projects } }, 
                     { $push: {employees: id} })
                 .then(new_projects_res => {
-                    res.redirect('/')
+                    res.redirect('/employees')
                 })
             })
             
@@ -264,7 +268,7 @@ app.delete('/employees/:id', (req, res) => {
             { $pull: {employees: id} },
         ).then(projects_res => {
             Employee.findByIdAndDelete(id).then(result => {
-                res.json({ redirect: '/'})
+                res.json({ redirect: '/employees'})
             })
         })
     })
