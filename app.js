@@ -158,12 +158,33 @@ app.post('/add-employee', (req, res) => {
 app.post('/employee', (req,res) => {
     console.log('POST/ employee')
     
-    const employee = new Employee(req.body)
-    employee.save().then((result) => {
-        res.redirect('/')
-    }).catch((err) => {
-        console.log(err)
-    })
+    // --- FORM VALIDATION --- //
+    // if birthday is past the present
+    if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0)) {
+        console.log('past today')
+    }
+    else {
+        // if birthday is past the hiring date
+        if(new Date(req.body.birthday).setHours(0, 0, 0, 0) > new Date(req.body.dateHired).setHours(0, 0, 0, 0)) {
+            console.log('birthday > hiring date')
+        }
+        // else, valid date inputs
+        else {
+            const employee = new Employee(req.body)
+            employee.save().then((result) => {
+                res.redirect('/')
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+    }
+
+    // const employee = new Employee(req.body)
+    // employee.save().then((result) => {
+    //     res.redirect('/')
+    // }).catch((err) => {
+    //     console.log(err)
+    // })
 })
 
 // 2. UPDATE Employee
