@@ -8,15 +8,6 @@ body {
 
 table.table.table-striped tr {
   background-color: theme-get(primary);
-  transition: 0.5s ease;
-
-  &:hover {
-    -moz-transform: translate(-10px, -10px);
-    -webkit-transform: translate(-10px, -10px);
-    -o-transform: translate(-10px, -10px);
-    -ms-transform: translate(-10px, -10px);
-    transform: translate(-10px, -10px);
-  }
 
   a.single {
     color: theme-get(link);
