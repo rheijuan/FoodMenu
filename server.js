@@ -298,14 +298,13 @@ app.post('/employees', (req,res) => {
     if(validateAddEmployee(req, error)) {
         const employee = new Employee(req.body)
         employee.save().then((result) => {
-            res.json(employee)
+            res.status(200).send(result)
         }).catch((err) => {
-            console.log(err)
+            res.status(400).send(error)
         })
     }
     else {
-        // res.render('employee/form', {error: error})
-        res.status(400).send('Invalid input')
+        res.status(400).send('Invalid')
     }
 })
 
@@ -338,19 +337,22 @@ app.post('/employees/:id', (req, res) => {
                     {_id: { $in: new_projects } }, 
                     { $push: {employees: id} })
                 .then(new_projects_res => {
-                    // res.redirect('/employees')
+                    // res.status(200).send(employee)
+                }).catch((err) => {
+                    res.status(400).send('Invalid')
                 })
+            }).catch((err) => {
+                res.status(400).send('Invalid')
             })
         })
 
         Employee.findById(id).then(result => {
             Project.find().then((projects) => {
-                // res.render('employee/form', {employee: result, projects: projects, error:error})
+                res.status(200).send(employee)
             })
             res.json(req.body)
         }).catch(err => {
-            console.log(err)
-            // res.status(400).send('Employee not found')
+            res.status(400).send('Invalid')
         })
     }
     else {
@@ -369,7 +371,7 @@ app.delete('/employees/:id', (req, res) => {
             { $pull: {employees: id} },
         ).then(projects_res => {
             Employee.findByIdAndDelete(id).then(result => {
-                res.json({ redirect: '/employees'})
+                res.status(200).send('Deleted')
             })
         })
     })
@@ -384,7 +386,7 @@ app.post('/projects', (req,res) => {
 
     const project = new Project(req.body)
     project.save().then((result) => {
-        res.redirect('/projects')
+        res.status(200).send(result)
     }).catch((err) => {
         console.log(err)
     })
@@ -414,7 +416,7 @@ app.post('/projects/:id', (req, res) => {
                 {_id: { $in: new_employees } }, 
                 { $push: {projects: id} })
             .then(new_employees_res => {
-                res.redirect('/projects')
+                res.status(200).send(project)
             })
         })
         
@@ -433,7 +435,7 @@ app.delete('/projects/:id', (req, res) => {
             { $pull: {projects: id} },
         ).then(employees_res => {
             Project.findByIdAndDelete(id).then(result => {
-                res.json({ redirect: '/projects'})
+                res.status(200).send('Deleted')
             })
         })
     })
