@@ -199,6 +199,13 @@ function validateAddEmployee(req, error) {
         console.log('incomplete fields')
         return false
     }
+    else {
+        // fields should not be blank
+        if(req.body.name == "" || req.body.birthdat == "" || req.body.sex == "" || req.body.address == "" || req.body.dateHired == "") {
+            console.log('incomplete fields')
+            return false
+        }
+    }
     
     if(!isValidSex(req.body.sex)) { // if not Male, Female, Prefer not to say
         console.log('invalid sex')
