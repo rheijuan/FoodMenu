@@ -185,6 +185,12 @@ function isValidSex(sex) {
 
 
 function validateAddEmployee(req, error) {
+    if(!req.body.hasOwnProperty('name') || !req.body.hasOwnProperty('birthday') || !req.body.hasOwnProperty('sex') || !req.body.hasOwnProperty('address') ||
+        !req.body.hasOwnProperty('dateHired')) { // if not all fields are provided
+        console.log('incomplete fields')
+        return false
+    }
+    
     if(!isValidSex(req.body.sex)) { // if not Male, Female, Prefer not to say
         console.log('invalid sex')
         return false
@@ -298,13 +304,13 @@ app.post('/employees', (req,res) => {
     if(validateAddEmployee(req, error)) {
         const employee = new Employee(req.body)
         employee.save().then((result) => {
-            res.status(200).send(result)
+            res.status(201).send(result)
         }).catch((err) => {
             res.status(400).send(error)
         })
     }
     else {
-        res.status(400).send('Invalid')
+        res.status(400).send('Invalid input, object invalid')
     }
 })
 
@@ -339,10 +345,10 @@ app.post('/employees/:id', (req, res) => {
                 .then(new_projects_res => {
                     // res.status(200).send(employee)
                 }).catch((err) => {
-                    res.status(400).send('Invalid')
+                    res.status(400).send('Invalid input, object invalid')
                 })
             }).catch((err) => {
-                res.status(400).send('Invalid')
+                res.status(400).send('Invalid input, object invalid')
             })
         })
 
@@ -352,11 +358,11 @@ app.post('/employees/:id', (req, res) => {
             })
             res.json(req.body)
         }).catch(err => {
-            res.status(400).send('Invalid')
+            res.status(400).send('Invalid input, object invalid')
         })
     }
     else {
-        res.status(400).send('Invalid input')
+        res.status(400).send('Invalid input, object invalid')
     }
 })
 
@@ -371,7 +377,7 @@ app.delete('/employees/:id', (req, res) => {
             { $pull: {employees: id} },
         ).then(projects_res => {
             Employee.findByIdAndDelete(id).then(result => {
-                res.status(200).send('Deleted')
+                res.status(200).send('Successful deletion')
             })
         })
     })
@@ -416,7 +422,7 @@ app.post('/projects/:id', (req, res) => {
                 {_id: { $in: new_employees } }, 
                 { $push: {projects: id} })
             .then(new_employees_res => {
-                res.status(200).send(project)
+                res.status(201).send(project)
             })
         })
         
