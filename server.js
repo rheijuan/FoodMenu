@@ -353,6 +353,15 @@ app.post('/employees/:id', (req, res) => {
             }
             else {
 
+                // if req has projects param
+                // projects = []
+                // if(req.body.hasOwnProperty('projects')) {
+                //     projects = req.body.projects
+                // }
+                // else {
+                //     projects = employee.projects
+                // }
+
                 var arrA = employee.projects
                 var arrB = req.body.projects
         
@@ -442,10 +451,21 @@ app.post('/projects/:id', (req, res) => {
         if(req.body.name != "") {
             Project.findByIdAndUpdate(id, req.body).then(project => {
                 // if project id not found
+                
                 if(project == null) {
                     res.status(404).send('Project not found')
                 }
                 else {
+                    
+                    // if req has employees param
+                    // employees = []
+                    // if(req.body.hasOwnProperty('employees')) {
+                    //     employees = req.body.employees
+                    // }
+                    // else {
+                    //     employees = project.employees
+                    // }
+
 
                     var arrA = project.employees
                     var arrB = req.body.employees
