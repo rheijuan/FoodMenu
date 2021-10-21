@@ -47,16 +47,16 @@ app.get('/', (req, res) => {
 
 app.get('/docs', (req,res) => {
     // open in same tab
-    // res.sendFile(path.join(__dirname+'/views/docs.html'));
+    res.sendFile(path.join(__dirname+'/views/docs.html'));
     //__dirname : It will resolve to your project folder.
 
     // open in a new window
-    open(path.join(__dirname+'/views/docs.html'), function (err) {
-        console.log(err)
-        if (err) throw err;    
-    }).then((result) => {
-        res.redirect('/')
-    });
+    // open(path.join(__dirname+'/views/docs.html'), function (err) {
+    //     console.log(err)
+    //     if (err) throw err;    
+    // }).then((result) => {
+    //     res.redirect('/')
+    // });
 });
 
 // ---- EMPLOYEE ----
