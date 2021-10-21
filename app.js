@@ -64,11 +64,7 @@ app.get('/docs', (req,res) => {
 // ---- EMPLOYEE ----
 
 app.get('/employees', (req, res) => {
-    Project.find().then((projects) => {
-        Employee.find().then((employees) => {
-            res.render('employee/display' , {projects: projects, employees: employees});
-        })
-    })
+    res.render('index')
 })
 
 // Add Page
