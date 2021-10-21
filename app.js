@@ -54,9 +54,9 @@ app.get('/docs', (req,res) => {
     open(path.join(__dirname+'/views/docs.html'), function (err) {
         console.log(err)
         if (err) throw err;    
+    }).then((result) => {
+        res.redirect('/')
     });
-
-    res.redirect('/')
 });
 
 // ---- EMPLOYEE ----
