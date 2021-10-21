@@ -55,25 +55,4 @@
         <i> <p> There are no projects. </p> </i>
     <% } %>
     <!-- END OF CARD DECK FOR PROJECTS -->
-    </div>
-
-<!-- <div class='projects'>
-    <h2>All Projects</h2>
-
-    <% if(projects.length > 0) { %>
-        <% projects.forEach(project => { %>
-            <a class='single' href='/projects/<%= project._id %>'> <h3 class='name'> <%= project.name %> </h3>  </a>
-            <% 
-                project.employees.forEach(project_employee => { 
-                    employees.forEach(employee => { 
-                        if(project_employee == employee._id) { %>
-                            <p><%= employee.name %></p>
-                        <% }
-                    })
-                }) 
-             %>
-        <% }) %>
-    <% } else {%>
-        <p>There are no projects</p>
-    <% } %>
-</div> -->
+</div>

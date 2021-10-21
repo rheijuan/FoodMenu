@@ -56,31 +56,3 @@
         </div>
     </div>
 </div>
-<!-- END OF ADD PROJECT FORM -->
-
-<!-- <div class ='project-form'>
-    
-    <form action=<%= action %> method='POST'>
-        <input type="text" name="name"  value='<%= project_name %>' required />
-
-        <% if(method === "Update") { %>
-            <h1>Manage Employees</h1>
-
-            <select class="js-example-basic-multiple" name="employees[]" multiple="multiple" data-placeholder="Please select a">
-                <% 
-                    employees.forEach(employee => {
-                        if(project.employees.indexOf(employee._id) > -1) { %>
-                            <option value="<%= employee._id %>" selected><%= employee.name %></option>
-                        <% } else { %>
-                            <option value="<%= employee._id %>"><%= employee.name %></option>
-                        <% }
-                    }) 
-                %> 
-            </select>
-
-        <% } %>
-
-        <button type="submit"><%= method %> Project</button>
-    </form>
-
-</div> -->

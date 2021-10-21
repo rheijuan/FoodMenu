@@ -43,14 +43,7 @@ app.get('/', (req, res) => {
 // ---- API DOCS  ----
 
 app.get('/docs', (req,res) => {
-    // open in same tab
-    // res.sendFile(path.join(__dirname+'/views/docs.html'));
-    //__dirname : It will resolve to your project folder.
-
-    // open in a new window
-    open(path.join(__dirname+'/views/docs.html'), function (err) {
-        if (err) throw err;    
-    });
+    res.sendFile(path.join(__dirname+'/views/docs.html'));
 });
 
 // ---- EMPLOYEE ----
@@ -351,16 +344,6 @@ app.put('/employees/:id', (req, res) => {
                 res.status(404).send('Employee not found')
             }
             else {
-
-                // if req has projects param
-                // projects = []
-                // if(req.body.hasOwnProperty('projects')) {
-                //     projects = req.body.projects
-                // }
-                // else {
-                //     projects = employee.projects
-                // }
-
                 var arrA = employee.projects
                 var arrB = req.body.projects
         
@@ -455,17 +438,6 @@ app.put('/projects/:id', (req, res) => {
                     res.status(404).send('Project not found')
                 }
                 else {
-                    
-                    // if req has employees param
-                    // employees = []
-                    // if(req.body.hasOwnProperty('employees')) {
-                    //     employees = req.body.employees
-                    // }
-                    // else {
-                    //     employees = project.employees
-                    // }
-
-
                     var arrA = project.employees
                     var arrB = req.body.employees
 
