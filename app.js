@@ -55,6 +55,8 @@ app.get('/docs', (req,res) => {
         console.log(err)
         if (err) throw err;    
     });
+
+    res.redirect('/')
 });
 
 // ---- EMPLOYEE ----
