@@ -331,7 +331,7 @@ app.post('/employees', (req,res) => {
 })
 
 // 2. UPDATE Employee
-app.post('/employees/:id', (req, res) => {
+app.put('/employees/:id', (req, res) => {
     console.log('PUT/ employees/:id')
 
     const id = req.params.id
@@ -438,7 +438,7 @@ app.post('/projects', (req,res) => {
 })
 
 // 2. UPDATE Project
-app.post('/projects/:id', (req, res) => {
+app.put('/projects/:id', (req, res) => {
     console.log('PUT/ projects/:id')
 
     const id = req.params.id
