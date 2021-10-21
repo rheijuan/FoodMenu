@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const Employee = require('./models/employee')
 const Project = require('./models/project')
 const path = require('path')
-const open = require('open')
 
 // express app
 const app = express()
