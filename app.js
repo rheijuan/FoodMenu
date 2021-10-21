@@ -40,7 +40,7 @@ mongoose.connect(dbURI)
 // ---- HOMEPAGE ----
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('/employee/display');
 })
 
 // ---- API DOCS  ----
