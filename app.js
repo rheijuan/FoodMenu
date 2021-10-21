@@ -4,6 +4,7 @@ const Employee = require('./models/employee')
 const Project = require('./models/project')
 const path = require('path')
 const open = require('open')
+const timeout = require('connect-timeout')
 
 // express app
 const app = express()
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(timeout('60s'))
 
 // connect to mongodb
 const dbURI = 'mongodb+srv://root:root@foodmenuapp.7r05l.mongodb.net/Items?retryWrites=true&w=majority'
