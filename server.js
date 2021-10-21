@@ -339,9 +339,12 @@ app.post('/employees/:id', (req, res) => {
         'message': ''
     }
 
-    // if (req.body.projects == null) {
-    //     req.body.projects = []
-    // }
+    if (req.body.projects == null) {
+        req.body.projects = []
+        console.log("NULL -" + req.body.projects + "-" + typeof req.body.projects)
+    }
+
+    
     
     if(validateUpdateEmployee(req, error)) {
         Employee.findByIdAndUpdate(id, req.body).then(employee => {
@@ -349,36 +352,38 @@ app.post('/employees/:id', (req, res) => {
                 res.status(404).send('Employee not found')
             }
             else {
-                // if req has projects param
-                projects = []
-                if(req.body.hasOwnProperty('projects')) {
-                    projects = req.body.projects
-                }
-                else {
-                    projects = employee.projects
-                }
 
-                // var arrA = employee.projects
-                // var arrB = req.body.projects
+                // if req has projects param
+                // projects = []
+                // if(req.body.hasOwnProperty('projects')) {
+                //     projects = req.body.projects
+                // }
+                // else {
+                //     projects = employee.projects
+                // }
+
+                var arrA = employee.projects
+                var arrB = req.body.projects
         
-                // var old_projects = arrA.filter(x => !arrB.includes(x));
-                // var new_projects = arrB.filter(x => !arrA.includes(x));
-        
+                var old_projects = arrA.filter(x => !arrB.includes(x));
+                var new_projects = arrB.filter(x => !arrA.includes(x));
+
                 Project.updateMany({
-                    _id: { $in: projects } }, 
+                    _id: { $in: old_projects } }, 
                     { $pull: {employees: id} })
                 .then(old_projects_res => {
                     Project.updateMany(
-                        {_id: { $in: projects } }, 
+                        {_id: { $in: new_projects } }, 
                         { $push: {employees: id} })
-                    .then(new_projects_res => {
-                        // res.status(200).send(employee)
-                    }).catch((err) => {
-                        res.status(400).send('Invalid input, object invalid')
-                    })
+                        .then(new_projects_res => {
+                            // res.status(200).send(employee)
+                        }).catch((err) => {
+                            res.status(400).send('Invalid input, object invalid')
+                        })
                 }).catch((err) => {
                     res.status(400).send('Invalid input, object invalid')
                 })
+        
             }
         })
 
@@ -437,45 +442,49 @@ app.post('/projects/:id', (req, res) => {
     console.log('PUT/ projects/:id')
 
     const id = req.params.id
-    // if (req.body.employees == null) {
-    //     req.body.employees = []
-    // }
+    if (req.body.employees == null) {
+        req.body.employees = []
+    }
     
     // if name is not null
     if(req.body.hasOwnProperty('name')){
         if(req.body.name != "") {
             Project.findByIdAndUpdate(id, req.body).then(project => {
                 // if project id not found
+                
                 if(project == null) {
                     res.status(404).send('Project not found')
                 }
                 else {
-                    // if projects is not null
-                    employees = []
-                    if(req.body.hasOwnProperty('employees')) {
-                        employees = req.body.employees
-                    }
-                    else {
-                        employees = project.employees
-                    }
+                    
+                    // if req has employees param
+                    // employees = []
+                    // if(req.body.hasOwnProperty('employees')) {
+                    //     employees = req.body.employees
+                    // }
+                    // else {
+                    //     employees = project.employees
+                    // }
 
-                    // var arrA = project.employees
-                    // var arrB = req.body.employees
 
-                    // var old_employees = arrA.filter(x => !arrB.includes(x));
-                    // var new_employees = arrB.filter(x => !arrA.includes(x));
+                    var arrA = project.employees
+                    var arrB = req.body.employees
+
+                    var old_employees = arrA.filter(x => !arrB.includes(x));
+                    var new_employees = arrB.filter(x => !arrA.includes(x));
 
                     Employee.updateMany({
-                        _id: { $in: employees } }, 
+                        _id: { $in: old_employees } }, 
                         { $pull: {projects: id} })
                     .then(old_employees_res => {
                         Employee.updateMany(
-                            {_id: { $in: employees } }, 
+                            {_id: { $in: new_employees } }, 
                             { $push: {projects: id} })
                         .then(new_employees_res => {
                             res.status(200).send(req.body)
                         })
                     })
+
                 }
             })
        }
