@@ -40,7 +40,11 @@ mongoose.connect(dbURI)
 // ---- HOMEPAGE ----
 
 app.get('/', (req, res) => {
-    res.render('index');
+    Project.find().then((projects) => {
+        Employee.find().then((employees) => {
+            res.render('employee/display' , {projects: projects, employees: employees});
+        })
+    })
 })
 
 // ---- API DOCS  ----

@@ -1,61 +1,47 @@
-<% extend('../partials/layout') %>
+<% extend('partials/layout') %>
 
-<%- include('../partials/menu.ejs') %>
+<%- include('partials/menu.ejs') %>
 
-<div class="container">
-  <br><br>
-  <h1> Employee Database </h1>
-  <br>
-
-  <table id="employeeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">Name</th>
-        <th class="th-sm">Birthday</th>
-        <th class="th-sm">Sex</th>
-        <th class="th-sm">Projects</th>
-        <th class="th-sm">Address</th>
-        <th class="th-sm">Date Hired</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if(employees.length > 0) { %>
-        <% employees.forEach(employee => { %>
-            <tr>
-              <td><a class='single' href='/employees/<%= employee._id %>'> <%= employee.name %></a></td>
-              <td><%= employee.birthday %></td>
-              <td><%= employee.sex %></td>
-              <td>
-                <%
-                  employee.projects.forEach(employee_project => {
-                    projects.forEach(project => {
-                      if(String(employee_project) == (project._id)) { %>
-                        <ul>  
-                          <li> <a class='single' href='/projects/<%= project._id %>'> <%= project.name %> </a> </li>
-                        </ul>
-                      <%}
-                    })
-                  }) 
-                %>
+<div class="dot-strip">
     
-              </td>
-              <td><%= employee.address %></td>
-              <td><%= employee.dateHired %></td>
-            </tr>
-        <% }) %>
-      <% } else {%>
-          <tr align="center">
-            <td colspan="6">There are no employees added.</td>
-          </tr>
-      <% } %>
-    </tbody>
-  </table>
+    <div class="circle left">
+        <div class="circle-inner">
+            <!-- <span class="circle-span"> -->
+                <label class="before"><i class="gg-today"></i></label>
+                <label class="after">ORGANIZING</label>
+            <!-- </span> -->
+        </div>       
+    </div>
+
+    <div class="circle middle">
+        <div class="circle-inner">
+            <!-- <span class="circle-span"> -->
+                <label class="before right"><i class="gg-feed"></i></label>
+                <label class="after">PLANNING</label>
+            <!-- </span> -->
+        </div>
+    </div>
+
+    <div class="circle right">
+        <div class="circle-inner">
+            <!-- <span class="circle-span"> -->
+                <label class="before"><i class="gg-comment"></i></label>
+                <label class="after">DISTRIBUTION</label>
+            <!-- </span>  -->
+        </div>
+    </div>
+    
+    <div class="logo">
+        <div class="triangle"></div>
+    </div>
+
+    <div class="text">
+        <label class="header">EMS</label>
+        <label class="sub-header">A CRUD API employee management system to help businesses</label>
+        <label class="sub-header">and promote healthy work distribution</label>
+    </div>
 </div>
 
-<script>
-  $(document).ready(function () {
-      $('#employeeTable').DataTable({
-        "order": []
-      });
-  });
-</script>
+<div class="white-strip">
+    
+</div>
